@@ -18,6 +18,8 @@ import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
 
+import {AuthService} from "../shared/services/auth.service";
+
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
@@ -28,6 +30,20 @@ export type StoreType = {
   state: InternalStateType,
   restoreInputValues: () => void,
   disposeOldHosts: () => void
+};
+
+// Typing for selfbits config variable
+export interface AppConfig {
+  BASE_URL:string,
+  APP_ID:string,
+  APP_SECRET:string
+}
+
+//Selfbits config variable
+export const APPCONFIG:AppConfig = {
+    BASE_URL: 'https://ensolar-api.selfbits.io',
+    APP_ID: '8298054e8f38c3e58cc46aed42ba4729',
+    APP_SECRET: 'daab79d99d7a2e40dba17810ba4cb827',
 };
 
 /**
@@ -50,7 +66,9 @@ export type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    AuthService,
+    {provide:'APP_CONFIG_TOKEN', useValue:APPCONFIG}
   ]
 })
 

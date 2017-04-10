@@ -21,3 +21,27 @@
 .blurCalendar {
   height: 475px;
 }
+
+.nav-tab {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.nav-tab:visited, a:link {
+  color: #607D8B;
+}
+
+.nav-tab:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+
+.nav-tab.active {
+  color: #039be5;
+}
+

@@ -1,0 +1,123 @@
+<ba-card title="Notifiche">
+  <div class="row text-center">
+    <div class="col-lg-4 col-sm-4 col-xs-12 upper">
+      <div class="notification {{ reteColor }}">
+        <div class="clearfix">
+          <div class="notification-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle-thin fa-stack-2x"></i>
+              <i class="{{ eReteAcClass }} fa-stack-1x"></i>
+            </span>
+            <!-- <i class="{{ eReteAcClass }}"></i> -->
+          </div>
+          <div class="notification-body">
+            <span class="title"> RETE AC </span>
+            <span class="description">{{ eReteAcDt }}</span>
+          </div>
+          <div class="notification-extra"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12 upper">
+      <div class="notification {{ tensioneColor }}">
+        <div class="clearfix">
+          <div class="notification-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle-thin fa-stack-2x"></i>
+              <i class="{{ eTensioneFVClass }} fa-stack-1x"></i>
+            </span>
+            <!-- <i class="{{ eTensioneFVClass }}"></i> -->
+          </div>
+          <div class="notification-body">
+            <span class="title"> TENSIONE FV </span>
+            <span class="description">{{ eTensioneFVDt }}</span>
+          </div>
+          <div class="notification-extra"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12 upper">
+      <div class="notification {{ batteryColor }}">
+        <div class="clearfix">
+          <div class="notification-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle-thin fa-stack-2x"></i>
+              <i class="{{ eBatteryClass }} fa-stack-1x"></i>
+            </span>
+            <!-- <i class="{{ eBatteryClass }}"></i> -->
+          </div>
+          <div class="notification-body">
+            <span class="title"> BATTERIA </span>
+            <span class="description">{{ eBatteryDt }}</span>
+          </div>
+          <div class="notification-extra"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-lg-4 col-sm-4 col-xs-12 lower">
+      <div class="notification {{ overLoadColor }}">
+        <div class="clearfix">
+          <div class="notification-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-square-o fa-stack-2x"></i>
+              <i class="{{ eOverLoadClass }} fa-stack-1x"></i>
+            </span>
+            <!-- <i class="{{ eOverLoadClass }}"></i> -->
+          </div>
+          <div class="notification-body">
+            <span class="title"> SOVRACCARICO </span>
+            <span class="description">{{ eOverLoadDt }}</span>
+          </div>
+          <div class="notification-extra">
+            <!--                                                                  <i class="fa fa-calendar palegreen"></i> -->
+            <!--                                                                  <i class="fa fa-clock-o palegreen"></i> -->
+            <!--                                                                  <span class="description">at home</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12 lower">
+      <div class="notification {{ faultColor }}">
+        <div class="clearfix">
+          <div class="notification-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-square-o fa-stack-2x"></i>
+              <i class="{{ eFaultClass }} fa-stack-1x"></i>
+            </span>
+            <!-- <i class="{{ eFaultClass }}"></i> -->
+          </div>
+          <div class="notification-body">
+            <span class="title"> GUASTO </span>
+            <span class="description">{{ eFaultDt }}</span>
+          </div>
+          <div class="notification-extra">
+            <!--                                                                  <i class="fa fa-clock-o azure"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12 lower">
+      <div class="notification {{ byPassColor }}">
+        <div class="clearfix">
+          <div class="notification-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-square-o fa-stack-2x"></i>
+              <i class="{{ eByPassClass }} fa-stack-1x"></i>
+            </span>
+            <!-- <i class="{{ eByPassClass }}"></i> -->
+          </div>
+          <div class="notification-body">
+            <span class="title">  BYPASS </span>
+            <span class="description">{{ eByPassDt }}</span>
+          </div>
+          <div class="notification-extra">
+            <!--                                                                  <i class="fa fa-clock-o orange"></i> -->
+            <!--                                                                  <span class="description">office</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ba-card>

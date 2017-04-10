@@ -1,0 +1,34 @@
+<ba-card title="Storico - Dettaglio">
+  <div class="row">
+    <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 date" style="margin-top: 50px;">
+      <h3 class="text-center"><i class="fa fa-clock-o"></i> Andamento storico dettagliato del giorno {{ dt | date:'d MMMM yyyy' }}</h3>
+    </div>
+    <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 datepicker">
+      <ba-card class="datepicker" title="Selezionare il giorno">
+        <div class="input-group">
+          <input type="text" #day class="form-control with-primary-addon" [ngModel]="dt | date:'d/MM/yyyy'" (focus)="showDatePicker = true" aria-describedby="basic-addon1">
+          <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
+              <datepicker [(ngModel)]="dt" (ngModelChange)="onChange(day.value)" [showWeeks]="true" (selectionDone)="showDatePicker = false" [datepickerMode]="datepickerMode" [minMode]="minMode" [maxMode]="maxMode">
+              </datepicker>
+          </div>
+          <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showDatePicker = true"><i class="fa fa-calendar"></i></span>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+
+  <ba-am-chart baAmChartClass="dashboard-line-chart" [baAmChartConfiguration]="chartData" ></ba-am-chart>
+
+</ba-card>
+
+<ba-card>
+  <div class="text-justify">
+    <p><i class="fa fa-bar-chart-o" style="color: #008000"></i> Il grafico mostra lo storico dell'andamento. I valori indicati sono dettagliati.</p>
+  </div>
+</ba-card>
+
+<!-- <ba-card>
+  <div class="text-justify">
+    <p><i class="fa fa-info-circle" style="color: #008000"></i> Il risparmio indicato è puramente indicativo e determinato mediante un calcolo semplificato rispetto alle reali modalità applicate dal Gestore in bolletta. Entrade Srl non è in alcun modo responsabile per i valori indicati.</p>
+  </div>
+</ba-card> -->

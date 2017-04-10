@@ -11,7 +11,7 @@
     "noEmitHelpers": true,
     "strictNullChecks": false,
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
     ],
     "typeRoots": [

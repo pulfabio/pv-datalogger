@@ -1,12 +1,42 @@
-<div class="row">
+<div class="row pie-charts">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <pie-chart></pie-chart>
   </div>
 </div>
 
+<!-- <div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <chart-tabs></chart-tabs>
+</div> -->
+
 <div class="row">
-  <ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-xs-12"
-                     title="Acquisition Channels" baCardClass="traffic-panel medium-card">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <nav class="nav nav-pills text-center">
+      <a routerLink="overall" routerLinkActive="active" class="nav-tab" data-toggle="pill">Complessivo</a>
+      <a routerLink="stored" routerLinkActive="active" class="nav-tab" data-toggle="pill">Accumulo</a>
+      <a routerLink="network" routerLinkActive="active" class="nav-tab" data-toggle="pill">Energia Prelevata</a>
+      <a routerLink="consumption" routerLinkActive="active" class="nav-tab" data-toggle="pill">Consumo Casa</a>
+      <a routerLink="photovoltaic" routerLinkActive="active" class="nav-tab" data-toggle="pill">Prod. Fotovoltaico</a>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<notifications></notifications>
+
+<weather></weather>
+
+
+
+
+
+
+<!-- ITEMS BELOW THIS LINE ARE FOR REFERENCE ONLY!!!!
+
+
+
+<div class="row">
+  <ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-xs-12" title="Acquisition Channels" baCardClass="traffic-panel medium-card">
     <traffic-chart></traffic-chart>
   </ba-card>
 
@@ -19,10 +49,6 @@
 <div class="row">
   <div class="col-xlg-9 col-xl-6 col-lg-6  col-md-12 col-sm-12 col-xs-12">
     <div class="row">
-      <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-xs-12"
-               title="Revenue" baCardClass="medium-card">
-        <line-chart></line-chart>
-      </ba-card>
       <ba-card class="col-xlg-4 col-xl-12 col-lg-12 col-md-5 col-sm-12 col-xs-12"
                baCardClass="popular-app medium-card">
         <popular-app></popular-app>
@@ -50,3 +76,4 @@
   </ba-card>
 </div>
 
+ -->

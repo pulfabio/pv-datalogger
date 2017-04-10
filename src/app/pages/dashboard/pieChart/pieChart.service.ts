@@ -1,36 +1,70 @@
 import {Injectable} from '@angular/core';
-import {BaThemeConfigProvider, colorHelper} from '../../../theme';
+
+import { Http, Headers, Response } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable'; //For test w/o server side
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PieChartService {
+  private summaryUrl = "http://bws-datalogger.besquare.it/api/DashBoardSummary04";
 
-  constructor(private _baConfig:BaThemeConfigProvider) {
+  constructor(
+    private http: Http) {
   }
 
-  getData() {
-    let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
-    return [
-      {
-        color: pieColor,
-        description: 'New Visits',
-        stats: '57,820',
-        icon: 'person',
-      }, {
-        color: pieColor,
-        description: 'Purchases',
-        stats: '$ 89,745',
-        icon: 'money',
-      }, {
-        color: pieColor,
-        description: 'Active Users',
-        stats: '178,391',
-        icon: 'face',
-      }, {
-        color: pieColor,
-        description: 'Returned',
-        stats: '32,592',
-        icon: 'refresh',
-      }
-    ];
+  getSummaryData(): any {
+    return this.http.get(this.summaryUrl)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body || { };
+  }
+
+  // handleError method as per the Angular.io website
+  private handleError (error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
+
+  // getData() {
+  //   //let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
+  //   return [
+  //     {
+  //       color: '#FB6E52',
+  //       description: 'Energia Prelevata',
+  //       stats: '300 W',
+  //       icon: 'fa-bolt',
+  //     }, {
+  //       color: '#0072C6',
+  //       description: 'Produzione FV',
+  //       stats: '1376 W',
+  //       icon: 'fa-sun-o',
+  //     }, {
+  //       color: '#33CC00',
+  //       description: 'Consumo Casa',
+  //       stats: '1300 W',
+  //       icon: 'fa-home',
+  //     }, {
+  //       color: '#FFCE55',
+  //       description: 'Accululo in carica',
+  //       stats: '49 W',
+  //       icon: 'fa-battery-three-quarters',
+  //     }
+  //   ];
+  // }
 }

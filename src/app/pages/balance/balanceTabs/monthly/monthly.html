@@ -1,0 +1,105 @@
+<ba-card title="Mensile">
+  <div class="row">
+    <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 date" style="margin-top: 50px;">
+      <h3 class="text-center"><i class="fa fa-clock-o"></i> Andamento del mese di {{ dt | date:'MMMM yyyy' }}</h3>
+    </div>
+    <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 datepicker">
+      <ba-card class="datepicker" title="Selezionare il mese">
+        <div class="input-group">
+          <input type="text" #month class="form-control with-primary-addon" [ngModel]="dt | date:'MMMM yyyy'" (focus)="showDatePicker = true" aria-describedby="basic-addon1">
+          <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
+              <datepicker [(ngModel)]="dt" (ngModelChange)="onChange(month.value)" [showWeeks]="true" (selectionDone)="showDatePicker = false" [datepickerMode]="datepickerMode" [minMode]="minMode" [maxMode]="maxMode">
+              </datepicker>
+          </div>
+          <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showDatePicker = true"><i class="fa fa-calendar"></i></span>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+
+  <ba-am-chart baAmChartClass="dashboard-line-chart" [baAmChartConfiguration]="chartData" ></ba-am-chart>
+
+</ba-card>
+
+<ba-card title="Bilancio Energetico Mensile">
+  <div class="row">
+    <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12stats">
+      <div class="row">
+        <div class="col-xs-6 text-center" style="padding: 20px 0 20px 0">
+          <span style="font-size: 20px"><strong>{{summaryAC}}</strong> kWh</span>
+          <br>
+          <span><p>Totale energia assorbita dal gestore</p></span>
+        </div>
+        <div class="col-xs-6 text-center" style="padding: 20px 0 20px 0">
+          <span style="font-size: 20px"><strong>{{summaryGreen}}</strong> kWh</span>
+          <br>
+          <span>Totale energia consumata autoprodotta</span>
+        </div>
+      </div>
+      <div class="row" style="color: #008000">
+        <div class="col-xs-6 text-center" >
+          <strong><i class="fa fa-smile-o fa-5x"></i></strong>
+        </div>
+        <div class="col-xs-6 text-center" style="padding: 20px 0 20px 0">
+          <span style="font-size: 20px"><strong>{{totalEnergyMoneySave}} €</strong></span>
+          <br>
+          <span>Risparmio ottenuto</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart">
+      <ba-am-chart baAmChartClass="balance-pieChart-chart" [baAmChartConfiguration]="doughnutChartData" ></ba-am-chart>
+      <div class="piechart-legend text-center">
+        <div class="col-xs-6">
+          <h3><strong>{{ percSummaryAC }} %</strong></h3>
+          <p>Energia assorbita dal gestore</p>
+        </div>
+        <div class="col-xs-6">
+          <h3><strong>{{ percSummaryGreen }} %</strong></h3>
+          <p>Energia consumata autoprodotta</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ba-card>
+
+<ba-card>
+  <div class="text-justify">
+    <p><i class="fa fa-bar-chart-o" style="color: #008000"></i> Il grafico mostra la somma dei consumi energetici dell’impianto suddivisi per autoprodotti (tramite il parco FV e l’Accumulo) e assorbiti dal proprio Gestore (acquistati dal proprio fornitore di energia elettrica). Le misurazioni indicate sono puramente indicative e non impegnano il Costruttore.</p>
+  </div>
+</ba-card>
+
+<ba-card>
+  <div class="text-justify">
+    <p><i class="fa fa-info-circle" style="color: #008000"></i> Il risparmio indicato è puramente indicativo e determinato mediante un calcolo semplificato rispetto alle reali modalità applicate dal Gestore in bolletta. Entrade Srl non è in alcun modo responsabile per i valori indicati.</p>
+  </div>
+</ba-card>
+
+
+
+<!-- <table>
+  <tbody class="text-center">
+    <tr>
+      <td class="col-xs-6">
+        <span style="font-size: 20px"><strong>{{summaryAC}}</strong> kWh</span>
+        <br>
+        <span>Totale energia<br>assorbita dal gestore</span>
+      </td>
+      <td class="col-xs-6">
+        <span style="font-size: 20px"><strong>{{summaryGreen}}</strong> kWh</span>
+        <br>
+        <span>Totale energia<br>consumata autoprodotta</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-xs-6">
+        <strong><i class="fa fa-smile-o fa-5x"></i></strong>
+      </td>
+      <td class="col-xs-6">
+        <span style="font-size: 20px"><strong>{{totalEnergyMoneySave}} €</strong></span>
+        <br>
+        <span>Risparmio ottenuto</span>
+      </td>
+    </tr>
+  </tbody>
+</table> -->

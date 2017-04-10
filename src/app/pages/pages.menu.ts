@@ -6,13 +6,49 @@ export const PAGES_MENU = [
         path: 'dashboard',
         data: {
           menu: {
-            title: 'Dashboard',
+            title: 'Cruscotto',
             icon: 'ion-android-home',
             selected: false,
             expanded: false,
             order: 0
           }
         }
+      },
+      {
+        path: 'balance',
+        data: {
+          menu: {
+            title: 'Bilancio',
+            icon: 'ion-ios-pulse-strong',
+            selected: false,
+            expanded: false,
+            order: 50,
+          }
+        },
+      },
+      {
+        path: 'history',
+        data: {
+          menu: {
+            title: 'Storico',
+            icon: 'ion-stats-bars',
+            selected: false,
+            expanded: false,
+            order: 60,
+          }
+        },
+      },
+      {
+        path: 'technical',
+        data: {
+          menu: {
+            title: 'Area Tecnica',
+            icon: 'ion-wrench',
+            selected: false,
+            expanded: false,
+            order: 70,
+          }
+        },
       },
       {
         path: 'editors',

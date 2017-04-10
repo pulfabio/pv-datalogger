@@ -11,6 +11,15 @@ export class BaContentTop {
 
   public activePageTitle:string = '';
 
+  // constructor(private _state:GlobalState) {
+  //   this._state.subscribe('menu.activeLink', (activeLink) => {
+  //     if (activeLink.hasOwnProperty("title")) {
+  //       this.activePageTitle = activeLink.title;
+  //     } else {this.activePageTitle = "Dashboard";}
+  //   });
+  // }
+
+  //ORIGINAL CONSTRUCTOR
   constructor(private _state:GlobalState) {
     this._state.subscribe('menu.activeLink', (activeLink) => {
       if (activeLink) {

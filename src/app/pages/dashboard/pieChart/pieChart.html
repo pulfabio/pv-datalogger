@@ -1,17 +1,89 @@
 <div class="row pie-charts">
 
+  <!-- Pie Charts (4) -->
   <ba-card *ngFor="let chart of charts" class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
-
     <div class="pie-chart-item">
-      <div class="chart" [attr.data-rel]="chart.color" data-percent="60">
-        <span class="percent"></span>
+      <div class="chart" [attr.data-rel]="chart.color" [attr.data-percent]="chart.percent">
+        <span class="percent">{{ chart.percent }}</span>
       </div>
       <div class="description">
-        <div>{{ chart.description }}</div>
-        <div class="description-stats">{{ chart.stats }}</div>
+        <div >{{ chart.description }}</div>
+        <div class="description-stats" [ngStyle]="{'color': chart.color}">{{ chart.statsW }} / {{ chart.statsV }}</div>
       </div>
-      <i class="chart-icon i-{{ chart.icon }}"></i>
+      <div class="icon" [ngStyle]="{'color': chart.color}">
+        <i class="chart-icon fa {{ chart.icon }} fa-5x"></i>
+      </div>
     </div>
+  </ba-card>
+</div>
 
+<div class="row misc-cards"><!-- Miscellaneous cards (2) -->
+  <!-- Which first card is displayed depends on isAbsorbingGreen Boolean value -->
+
+  <!-- isAbsorbingGreen === true -->
+  <ba-card *ngIf="isAbsorbingGreen" class="green-abs col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="row absorbing">
+      <div class="leaf-icon col-xs-3">
+        <i class="chart-icon fa fa-leaf fa-5x"></i>
+      </div>
+      <div class="green-description col-xs-9">
+        <div class="section-block upper-text regular-text text-center">
+          <h6>STATO IMPIANTO</h6>
+        </div>
+        <div class="section-block upper-text bold-text text-center">
+          <h5>ASSORBIMENTO GREEN</h5>
+        </div>
+
+      </div>
+    </div>
+  </ba-card>
+
+  <!-- isAbsorbingGreen === false -->
+  <ba-card *ngIf="!isAbsorbingGreen" class="green-abs col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="row not-absorbing">
+      <div class="bolt-icon col-xs-3">
+        <i class="chart-icon fa fa-bolt fa-5x"></i>
+      </div>
+      <div class="red-description col-xs-9">
+        <div class="section-block upper-text regular-text text-center">
+          <h6>STATO IMPIANTO</h6>
+        </div>
+        <div class="section-block upper-text bold-text text-center">
+          <h5>ASSORBIMENTO DA RETE AC</h5>
+        </div>
+      </div>
+    </div>
+  </ba-card>
+
+  <!-- Generated Energy card -->
+  <ba-card class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="row generated-energy">
+      <div class="recycle-icon col-xs-4">
+        <i class="chart-icon fa fa-recycle fa-5x"></i>
+      </div>
+      <div class="generated-description col-xs-8">
+        <div class="row">
+          <div class="col-xs-12 text-left">
+            <h4>ENERGIA FV GENERATA</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 text-left">
+            <h5>OGGI:</h5>
+          </div>
+          <div class="col-xs-6 text-left">
+            <h4>{{ dailyGeneratedEnergy }} kWh</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 text-left">
+            <h5>TOTALE:</h5>
+          </div>
+          <div class="col-xs-6 text-left">
+            <h4>{{ totalGeneratedEnergy }} kWh</h4>
+          </div>
+        </div>
+      </div>
+    </div>
   </ba-card>
 </div>
