@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable'; //For test w/o server side
+import { Observable } from 'rxjs/Rx'; //For test w/o server side
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -26,12 +26,32 @@ export class TechnicalService {
   }
 
   getSummaryData(date): any {
-    return this.http.get(this.summaryUrl + date)
-      .map(this.extractData)
-      .catch(this.handleError);
+    //WITH AUTOMATIC REFRESH
+    return Observable.interval(60000) //Automatic data refresh
+    .startWith(0)
+    .flatMap(() =>
+      this.http.get(this.summaryUrl + date)
+    )
+    .map(this.extractData)
+    .catch(this.handleError);
+
+    //W/O AUTOMATIC REFRESH
+    // return this.http.get(this.summaryUrl + date)
+    //   .map(this.extractData)
+    //   .catch(this.handleError);
   }
 
   getDetailData(date): any {
+    //WITH AUTOMATIC REFRESH (TOO SLOW)
+    // return Observable.interval(60000) //Automatic data refresh
+    // .startWith(0)
+    // .flatMap(() =>
+    //   this.http.get(this.detailUrl + date)
+    // )
+    // .map(this.extractData)
+    // .catch(this.handleError);
+
+    //W/O AUTOMATIC REFRESH
     return this.http.get(this.detailUrl + date)
       .map(this.extractData)
       .catch(this.handleError);

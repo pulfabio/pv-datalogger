@@ -29,7 +29,7 @@
         <label for="inputPassword4" class="col-sm-2 control-label">Ripeti</label>
 
         <div class="col-sm-10">
-          <input [formControl]="repeatPassword" type="password" class="form-control" id="inputPassword4" placeholder="Ripeti">
+          <input [formControl]="repeatPassword" type="password" class="form-control" id="inputPassword4" placeholder="Ripeti Password">
           <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">Le password sono diverse.</span>
         </div>
       </div>

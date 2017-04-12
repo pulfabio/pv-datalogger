@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable'; //For test w/o server side
+import { Observable } from 'rxjs/Rx'; //For test w/o server side
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,9 +16,19 @@ export class NotificationsService {
   }
 
   getNotificationsData(): any {
-    return this.http.get(this.notificationsUrl)
-      .map(this.extractData)
-      .catch(this.handleError);
+    //WITH AUTOMATIC REFRESH
+    return Observable.interval(60000) //Automatic data refresh
+    .startWith(0)
+    .flatMap(() =>
+      this.http.get(this.notificationsUrl)
+    )
+    .map(this.extractData)
+    .catch(this.handleError);
+
+    //W/O AUTOMATIC REFRESH
+    // return this.http.get(this.notificationsUrl)
+    //   .map(this.extractData)
+    //   .catch(this.handleError);
   }
 
   private extractData(res: Response) {

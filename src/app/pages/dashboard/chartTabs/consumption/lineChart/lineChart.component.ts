@@ -23,7 +23,7 @@ export class ConsumptionChart {
     this.getRealTimeData();
   } //Call method at lifecycle hook OnInit.
 
-  getRealTimeData() { //Get data for summary piecharts
+  getRealTimeData() { //Get data for charts
     this._chartTabsService.getRealTimeData()
     .subscribe(
       realTimeData => {

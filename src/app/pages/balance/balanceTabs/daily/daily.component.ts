@@ -93,6 +93,7 @@ export class Daily {
   }
 
   getDailyBalanceData = () => {
+    //Setting a fixed date in the past as APIs are not updated
     //let date = moment(this.dt).format("DD.MM.YYYY");
     let date = moment(new Date("03 apr 2016")).format("DD.MM.YYYY");
     this._balanceService.getDailyBalanceData(date)

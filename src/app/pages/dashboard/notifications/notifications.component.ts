@@ -178,7 +178,6 @@ export class Notifications {
 
             break;
           case "PVReverse":
-            console.log(value);
             if (ETensioneFVClass == "")
               ETensioneFVClass = value;
             break;
