@@ -1,10 +1,24 @@
 .dashboard-line-chart {
   width: 100%;
-  height: 340px;
+  height: 340px; //340px;
   padding-top: 20px;
   margin-top: -10px;
+  //margin-bottom: 50px;
+}
+
+.my-dashboard-line-chart {
+  width: 100%;
+  height: 450px; //340px;
+  padding-top: 20px;
+  margin-top: -10px;
+  margin-bottom: 30px;
+  padding-bottom: 150px;
 }
 
 .datepicker {
   z-index:1000;
+}
+
+.main-chart {
+  height: 540px;
 }

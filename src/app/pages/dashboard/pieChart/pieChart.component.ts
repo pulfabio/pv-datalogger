@@ -3,6 +3,8 @@ import {BaThemeConfigProvider, colorHelper} from '../../../theme';
 
 import { PieChartService } from './pieChart.service';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import 'easy-pie-chart/dist/jquery.easypiechart.js';
 import 'style-loader!./pieChart.scss';
 
@@ -14,36 +16,56 @@ import 'style-loader!./pieChart.scss';
 export class PieChart {
 
   private errorMessage: string;
-  public charts: Array<Object>; //chart objects for summary piecharts
+  public chartsData: Array<Object>; //chart objects for summary piecharts
   public isAbsorbingGreen: boolean;
   public dailyGeneratedEnergy: any;
   public totalGeneratedEnergy: any;
   private _init = false; //Lifecycle hook ngDoCheck must be run only once
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private _pieChartService: PieChartService,
     private _baConfig:BaThemeConfigProvider
-    ) {}
+  ) { }
 
   ngOnInit() {
     this.getSummaryData();
   } //Call method at lifecycle hook OnInit.
 
-  ngDoCheck() {
+  // ngDoCheck() {
+  //   if (!this._init) {
+  //     this._loadPieCharts();
+  //     this._updatePieCharts(this.chartsData);
+  //   };
+  // } //Call method at DoCheck, only once through this._init
+
+  ngAfterViewChecked() {
     if (!this._init) {
       this._loadPieCharts();
+      this._updatePieCharts(this.chartsData);
     };
-  } //Call method at DoCheck, only once through this._init
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   getSummaryData() { //Get data for summary piecharts
-    this._pieChartService.getSummaryData()
+    this.subscription = this._pieChartService.getSummaryData()
     .subscribe(
       summary => {
         let result = this.parseSummary(summary);
-        this.charts = result.charts;
+        this.chartsData = result.chartsData;
         this.isAbsorbingGreen = result.isAbsorbingGreen;
         this.dailyGeneratedEnergy = result.dailyGeneratedEnergy;
         this.totalGeneratedEnergy = result.totalGeneratedEnergy;
+
+        //Reset _init to false when data from service is refreshed
+        this._init = false;
+
+        // this._loadPieCharts();
+        // this._updatePieCharts(this.chartsData);
+
       }, //Parses response and populates charts object array
       error => this.errorMessage = <any>error
     )
@@ -215,7 +237,7 @@ export class PieChart {
 
     //Step 2: Populating charts object array for summary piecharts
     let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
-    let charts = [
+    let chartsData = [
       {
         color: '#cc0000',
         description: 'Energia Prelevata',
@@ -249,7 +271,7 @@ export class PieChart {
     //Test
     //isAbsorbingGreen = false;
     return {
-      charts: charts,
+      chartsData: chartsData,
       isAbsorbingGreen: isAbsorbingGreen,
       dailyGeneratedEnergy: DailyGeneratedEnergy,
       totalGeneratedEnergy: TotalGeneratedEnergy
@@ -257,6 +279,35 @@ export class PieChart {
   }
 
   //leaf padding: 15px 0 0 20px; desc padding: 20px 0 0 0;
+
+  // private _loadPieCharts() {
+
+  //   jQuery('.chart').each(function () {
+  //     let chart = jQuery(this);
+  //     chart.easyPieChart({
+  //       easing: 'easeOutBounce',
+  //       onStep: function (from, to, percent) {
+  //         jQuery(this.el).find('.percent').text(Math.round(percent));
+  //       },
+  //       barColor: jQuery(this).attr('data-rel'),
+  //       trackColor: 'rgba(0,0,0,0)',
+  //       size: 84,
+  //       scaleLength: 0,
+  //       animation: 2000,
+  //       lineWidth: 9,
+  //       lineCap: 'round',
+  //     });
+  //   });
+  // }
+
+  // private _updatePieCharts() {
+  //   //let getRandomArbitrary = (min, max) => { return Math.random() * (max - min) + min; };
+  //   console.log("update");
+  //   jQuery('.pie-charts .chart').each(function(index, chart) {
+  //     //console.log(this.charts[index].percent);
+  //     jQuery(chart).data('easyPieChart').update("59");
+  //   });
+  // }
 
   private _loadPieCharts = () => {
     let loaded = false; //Test for this._init switching
@@ -280,12 +331,10 @@ export class PieChart {
     if (loaded) { this._init = true; } //Switch to true so ngDoCheck will not run forever
   }
 
-  // private _updatePieCharts() {
-
-  //   let getRandomArbitrary = (min, max) => { return Math.random() * (max - min) + min; };
-
-  //   jQuery('.pie-charts .chart').each(function(index, chart) {
-  //     jQuery(chart).data('easyPieChart').update();
-  //   });
-  // }
+  private _updatePieCharts = (chartsData) => {
+    jQuery('.pie-charts .chart').each(function(index, chart) {
+      //console.log(chartsData[0]);
+      jQuery(chart).data('easyPieChart').update(chartsData[index].percent);
+    });
+  }
 }

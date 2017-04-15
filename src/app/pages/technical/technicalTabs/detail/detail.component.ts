@@ -244,9 +244,9 @@ export class Detail {
         language: "it",
         autoMargins: false,
         marginTop: 15,
-        marginRight: 15,
-        marginBottom: 40,
-        marginLeft: 60,
+        marginRight: 130,
+        marginBottom: 150,
+        marginLeft: 170,
         responsive: {
           'enabled': true
         },
@@ -262,43 +262,52 @@ export class Detail {
         valueAxes: [
           {
             id: "v0",
-            title: "valore",
+            //title: "valore",
             minVerticalGap: 50,
             gridAlpha: 0,
             color: layoutColors.defaultText,
-            axisColor: layoutColors.defaultText,
+            axisColor: layoutColors.defaultText
           },
           {
             id: "v1",
-            title: "volt",
+            //title: "volt",
+            unit: "V",
             minVerticalGap: 50,
             gridAlpha: 0,
             color: layoutColors.defaultText,
             axisColor: layoutColors.defaultText,
+            offset: 60
           },
           {
             id: "v2",
-            title: "ampere",
+            //title: "ampere",
+            unit: "A",
             minVerticalGap: 50,
             gridAlpha: 0,
             color: layoutColors.defaultText,
             axisColor: layoutColors.defaultText,
+            offset: 120
           },
           {
             id: "v3",
-            title: "percentuale",
+            //title: "percentuale",
+            unit: "%",
             minVerticalGap: 50,
             gridAlpha: 0,
             color: layoutColors.defaultText,
             axisColor: layoutColors.defaultText,
+            position: "right"
           },
           {
             id: "v4",
-            title: "watt",
+            //title: "watt",
+            unit: "W",
             minVerticalGap: 50,
             gridAlpha: 0,
             color: layoutColors.defaultText,
             axisColor: layoutColors.defaultText,
+            position: "right",
+            offset: 60
           }
         ],
         "numberFormatter": {
@@ -309,16 +318,18 @@ export class Detail {
         legend: {
           useGraphSettings: true,
           position: "absolute",
-          top: -30,
-          //autoMargins: false,
-          marginLeft: 10,
+          //top: -30,
+          bottom: -210,
+          left: 50,
+          //right: -50,
+          autoMargins: false,
           marginTop: 10,
-          marginBottom: 20,
+          marginBottom: 50,
           align: "left",
           spacing: 0,
           valueAlign: "left",
           labelText: "[[title]]:",
-          valueText: "[[value]] W",
+          valueText: "[[value]]",
           equalWidths: false,
           fontSize: 11
         },
@@ -327,6 +338,7 @@ export class Detail {
             id: "g0",
             valueAxis: "v1",
             title: 'AC Input voltage',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#cc0000",
@@ -337,12 +349,13 @@ export class Detail {
             valueField: 'ACInputVoltage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b>V</span>"
           },
           {
             id: "g1",
             valueAxis: "v4",
             title: 'AC Output Frequency',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#0000ff",
@@ -353,12 +366,13 @@ export class Detail {
             valueField: 'ACOutputFrequency',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b>W</span>"
           },
           {
             id: "g2",
             valueAxis: "v1",
             title: 'AC Output voltage',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#ffd700",
@@ -369,12 +383,13 @@ export class Detail {
             valueField: 'ACOutputVoltage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[graph2]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[graph2]]: <b>[[value]]</b>V</span>"
           },
           {
             id: "g3",
             valueAxis: "v0",
             title: 'Battery capacity',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#008000",
@@ -385,7 +400,7 @@ export class Detail {
             valueField: 'BatteryCapacity',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[graph3]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[graph3]]: <b>[[value]]</b></span>"
           },
           {
             id: "g4",
@@ -401,12 +416,13 @@ export class Detail {
             valueField: 'BatteryVoltage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b>V</span>"
           },
           {
             id: "g5",
             valueAxis: "v2",
             title: 'Charge Current Grade',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#0000ff",
@@ -417,12 +433,13 @@ export class Detail {
             valueField: 'ChargeCurrentGrade',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b>A</span>"
           },
           {
             id: "g6",
             valueAxis: "v4",
             title: 'Generated Energy This Day',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#ffd700",
@@ -433,12 +450,13 @@ export class Detail {
             valueField: 'GeneratedEnergyThisDay',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[graph2]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[graph2]]: <b>[[value]]</b>W</span>"
           },
           {
             id: "g7",
             valueAxis: "v3",
             title: 'Load Percentage',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#008000",
@@ -449,12 +467,13 @@ export class Detail {
             valueField: 'LoadPercentage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[graph3]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[graph3]]: <b>[[value]]</b>%</span>"
           },
           {
             id: "g8",
             valueAxis: "v1",
             title: 'PV Input Voltage',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#cc0000",
@@ -465,12 +484,13 @@ export class Detail {
             valueField: 'PVInputVoltage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b>V</span>"
           },
           {
             id: "g9",
             valueAxis: "v2",
             title: 'PV Charge Current',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#0000ff",
@@ -481,12 +501,13 @@ export class Detail {
             valueField: 'PVChargeCurrent',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b>A</span>"
           },
           {
             id: "g10",
             valueAxis: "v4",
             title: 'PV Power',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#ffd700",
@@ -503,6 +524,7 @@ export class Detail {
             id: "g11",
             valueAxis: "v1",
             title: 'RatedBatteryVoltage',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#008000",
@@ -513,12 +535,13 @@ export class Detail {
             valueField: 'RatedBatteryVoltage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[graph3]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[graph3]]: <b>[[value]]</b> V</span>"
           },
           {
             id: "g12",
             valueAxis: "v1",
             title: 'Rated Voltage',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#cc0000",
@@ -529,12 +552,13 @@ export class Detail {
             valueField: 'RatedVoltage',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b> V</span>"
           },
           {
             id: "g13",
             valueAxis: "v4",
             title: 'Temperature',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#0000ff",
@@ -596,7 +620,10 @@ export class Detail {
         valueAxes: [
           {
             title: "on/off",
-            minVerticalGap: 50,
+            integersOnly: true,
+            minimum: -0.1,
+            maximum: 1.1,
+            //minVerticalGap: 50,
             gridAlpha: 0,
             color: layoutColors.defaultText,
             axisColor: layoutColors.defaultText,
@@ -619,7 +646,7 @@ export class Detail {
           spacing: 0,
           valueAlign: "left",
           labelText: "[[title]]:",
-          valueText: "[[value]] W",
+          valueText: "[[value]]",
           equalWidths: false,
           fontSize: 11
         },
@@ -627,6 +654,7 @@ export class Detail {
           {
             id: "g0",
             title: 'ECO Mode',
+            hidden: true,
             bullet: "none",
             useLineColorForBulletBorder: true,
             lineColor: "#cc0000",
@@ -637,7 +665,7 @@ export class Detail {
             valueField: 'ECOMode',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b></span>"
           },
           {
             id: "g1",
@@ -652,7 +680,7 @@ export class Detail {
             valueField: 'GreenMode',
             fillAlphas: 0,
             fillColorsField: 'lineColor',
-            balloonText: "<span>[[title]]: <b>[[value]]</b> W</span>"
+            balloonText: "<span>[[title]]: <b>[[value]]</b></span>"
           }
         ],
         chartCursor: {

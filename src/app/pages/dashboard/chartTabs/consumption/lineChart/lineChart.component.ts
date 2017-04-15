@@ -122,7 +122,8 @@ export class ConsumptionChart {
       },
       valueAxes: [
         {
-          title: "watt",
+          //title: "watt",
+          unit: "W",
           //inside: true,
           minVerticalGap: 50,
           gridAlpha: 0,

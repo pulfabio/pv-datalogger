@@ -195,7 +195,8 @@ export class Summary {
       },
       valueAxes: [
         {
-          title: "watt",
+          //title: "watt",
+          unit: "W",
           minVerticalGap: 50,
           gridAlpha: 0,
           color: layoutColors.defaultText,
