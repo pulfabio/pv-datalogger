@@ -9,10 +9,17 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PieChartService {
+  private connectionUrl = "http://bws-datalogger.besquare.it/api/Internet";
   private summaryUrl = "http://bws-datalogger.besquare.it/api/DashBoardSummary04";
 
   constructor(
     private http: Http) {
+  }
+
+  getConnection(): any {
+    return this.http.get(this.connectionUrl)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   getSummaryData(): any {

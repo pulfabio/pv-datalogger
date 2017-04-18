@@ -22,6 +22,7 @@ export class PieChart {
   public totalGeneratedEnergy: any;
   private _init = false; //Lifecycle hook ngDoCheck must be run only once
   private subscription: Subscription = new Subscription();
+  private busy: Subscription = new Subscription();
 
   constructor(
     private _pieChartService: PieChartService,
@@ -29,6 +30,7 @@ export class PieChart {
   ) { }
 
   ngOnInit() {
+    this.getConnection();
     this.getSummaryData();
   } //Call method at lifecycle hook OnInit.
 
@@ -48,6 +50,11 @@ export class PieChart {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.busy.unsubscribe();
+  }
+
+  getConnection() {
+    this.busy = this._pieChartService.getConnection().subscribe();
   }
 
   getSummaryData() { //Get data for summary piecharts

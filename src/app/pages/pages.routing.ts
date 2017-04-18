@@ -23,13 +23,6 @@ export const routes: Routes = [
       { path: 'balance', loadChildren: 'app/pages/balance/balance.module#BalanceModule' },
       { path: 'history', loadChildren: 'app/pages/history/history.module#HistoryModule' },
       { path: 'technical', loadChildren: 'app/pages/technical/technical.module#TechnicalModule' },
-      { path: 'editors', loadChildren: 'app/pages/editors/editors.module#EditorsModule' },
-      { path: 'components', loadChildren: 'app/pages/components/components.module#ComponentsModule' },
-      { path: 'charts', loadChildren: 'app/pages/charts/charts.module#ChartsModule' },
-      { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule' },
-      { path: 'forms', loadChildren: 'app/pages/forms/forms.module#FormsModule' },
-      { path: 'tables', loadChildren: 'app/pages/tables/tables.module#TablesModule' },
-      { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule' }
     ]
   }
 ];

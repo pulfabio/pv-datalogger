@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -62,6 +63,7 @@ export const APPCONFIG:AppConfig = {
     ReactiveFormsModule,
     NgaModule.forRoot(),
     PagesModule,
+    BrowserAnimationsModule,
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

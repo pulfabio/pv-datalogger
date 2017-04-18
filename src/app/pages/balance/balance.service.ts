@@ -74,7 +74,6 @@ export class BalanceService {
 
   private extractData(res: Response) {
     let body = res.json();
-    console.log(body);
     return body || { };
   }
 
@@ -89,7 +88,6 @@ export class BalanceService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
     return Observable.throw(errMsg);
   }
 

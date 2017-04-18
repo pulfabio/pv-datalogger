@@ -47,6 +47,7 @@ export class Daily {
     this._balanceService.getTimeData()
     .subscribe(
       timeData => {
+        console.log("time data gotten");
         let result = this.parseTimeData(timeData);
         this.dt = result.initialDate;
         }, //Parses response
@@ -99,6 +100,7 @@ export class Daily {
     this._balanceService.getDailyBalanceData(date)
     .subscribe(
       dailyBalanceData => {
+        console.log("daily data gotten");
         let result = this.parseDailyBalanceData(dailyBalanceData);
         this.chartData = result.chartData;
         this.doughnutChartData = result.doughnutChartData;
