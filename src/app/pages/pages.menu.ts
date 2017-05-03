@@ -12,7 +12,49 @@ export const PAGES_MENU = [
             expanded: false,
             order: 0
           }
-        }
+        },
+        children: [
+          {
+            path: 'overall',
+            data: {
+              menu: {
+                title: 'Complessivo'
+              }
+            }
+          },
+          {
+            path: 'stored',
+            data: {
+              menu: {
+                title: 'Accumulo'
+              }
+            }
+          },
+          {
+            path: 'network',
+            data: {
+              menu: {
+                title: 'Energia Prelevata'
+              }
+            }
+          },
+          {
+            path: 'consumption',
+            data: {
+              menu: {
+                title: 'Consumo Casa'
+              }
+            }
+          },
+          {
+            path: 'photovoltaic',
+            data: {
+              menu: {
+                title: 'Prod. Fotovoltaico'
+              }
+            }
+          }
+        ]
       },
       {
         path: 'balance',
@@ -25,6 +67,32 @@ export const PAGES_MENU = [
             order: 50,
           }
         },
+        children: [
+          {
+            path: 'daily',
+            data: {
+              menu: {
+                title: 'Bilancio-Giornaliero'
+              }
+            }
+          },
+          {
+            path: 'monthly',
+            data: {
+              menu: {
+                title: 'Bilancio-Mensile'
+              }
+            }
+          },
+          {
+            path: 'annual',
+            data: {
+              menu: {
+                title: 'Bilancio-Annuale'
+              }
+            }
+          },
+        ]
       },
       {
         path: 'history',
@@ -37,6 +105,24 @@ export const PAGES_MENU = [
             order: 60,
           }
         },
+        children: [
+          {
+            path: 'summary',
+            data: {
+              menu: {
+                title: 'Storico-Sommario'
+              }
+            }
+          },
+          {
+            path: 'detail',
+            data: {
+              menu: {
+                title: 'Storico-Dettaglio'
+              }
+            }
+          },
+        ]
       },
       {
         path: 'technical',
@@ -49,6 +135,24 @@ export const PAGES_MENU = [
             order: 70,
           }
         },
+        children: [
+          {
+            path: 'summary',
+            data: {
+              menu: {
+                title: 'Area Tecnica-Sommario'
+              }
+            }
+          },
+          {
+            path: 'detail',
+            data: {
+              menu: {
+                title: 'Area Tecnica-Dettaglio'
+              }
+            }
+          },
+        ]
       },
       {
         path: '',
@@ -77,49 +181,6 @@ export const PAGES_MENU = [
                 title: 'Register'
               }
             }
-          }
-        ]
-      },
-      {
-        path: '',
-        data: {
-          menu: {
-            title: 'Menu Level 1',
-            icon: 'ion-ios-more',
-            selected: false,
-            expanded: false,
-            order: 700,
-          }
-        },
-        children: [
-          {
-            path: '',
-            data: {
-              menu: {
-                title: 'Menu Level 1.1',
-                url: '#'
-              }
-            }
-          },
-          {
-            path: '',
-            data: {
-              menu: {
-                title: 'Menu Level 1.2',
-                url: '#'
-              }
-            },
-            children: [
-              {
-                path: '',
-                data: {
-                  menu: {
-                    title: 'Menu Level 1.2.1',
-                    url: '#'
-                  }
-                }
-              }
-            ]
           }
         ]
       },

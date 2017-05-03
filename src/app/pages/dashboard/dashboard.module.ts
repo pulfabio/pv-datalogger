@@ -16,6 +16,7 @@ import { ConsumptionChart } from './chartTabs/consumption/lineChart';
 import { NetworkChart } from './chartTabs/network/lineChart';
 import { PhotovoltaicChart } from './chartTabs/photovoltaic/lineChart';
 
+import { DashboardService } from './dashboard.service';
 import { ChartTabsService } from './chartTabs/chartTabs.service';
 import { WeatherService } from './weather/weather.service';
 import { NotificationsService } from './notifications/notifications.service';
@@ -47,6 +48,7 @@ import { PieChart } from './pieChart';
     Notifications
   ],
   providers: [
+    DashboardService,
     ChartTabsService,
     PieChartService,
     WeatherService,

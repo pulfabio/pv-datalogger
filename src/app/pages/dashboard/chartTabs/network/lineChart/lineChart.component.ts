@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {BaThemeConfigProvider, colorHelper, layoutPaths} from '../../../../../theme';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import {ChartTabsService} from '../../chartTabs.service';
 
 import 'style-loader!./lineChart.scss';
@@ -13,6 +15,8 @@ export class NetworkChart {
 
   private errorMessage: string;
   public chartData: any;
+  private subscription: Subscription = new Subscription();
+  private busy: Subscription = new Subscription();
 
   constructor(
     private _chartTabsService: ChartTabsService,
@@ -20,11 +24,21 @@ export class NetworkChart {
     ) {}
 
   ngOnInit() {
+    this.getConnection();
     this.getRealTimeData();
   } //Call method at lifecycle hook OnInit.
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.busy.unsubscribe();
+  }
+
+  getConnection() {
+    this.busy = this._chartTabsService.getConnection().subscribe();
+  }
+
   getRealTimeData() { //Get data for charts
-    this._chartTabsService.getRealTimeData()
+    this.subscription = this._chartTabsService.getRealTimeData()
     .subscribe(
       realTimeData => {
         this.chartData = this.parseRealTimeData(realTimeData);

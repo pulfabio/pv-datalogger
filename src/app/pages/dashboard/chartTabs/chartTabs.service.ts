@@ -15,6 +15,13 @@ export class ChartTabsService {
     private http: Http) {
   }
 
+  //Used for busy/loading indicator
+  getConnection(): any {
+    return this.http.get(this.realTimeUrl)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   getRealTimeData(): any {
     //WITH AUTOMATIC REFRESH
     return Observable.interval(60000) //Automatic data refresh

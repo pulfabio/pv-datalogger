@@ -17,6 +17,20 @@ export class HistoryService {
     private http: Http) {
   }
 
+  //Used for busy/loading indicator
+  getConnectionSummary(): any {
+    return this.http.get(this.summaryUrl)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  //Used for busy/loading indicator
+  getConnectionDetail(): any {
+    return this.http.get(this.detailUrl)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   getTimeData(): any {
     return this.http.get(this.timeUrl)
       .map(this.extractData)

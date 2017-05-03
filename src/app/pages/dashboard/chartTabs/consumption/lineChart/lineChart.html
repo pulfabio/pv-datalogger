@@ -1,3 +1,6 @@
+<!-- Busy-Loading Indicator -->
+<div [ngBusy]="{busy: busy, message: 'Aggiornamento in corso...', backdrop: false, delay: 0, minDuration: 500}"></div>
+
 <ba-card title="Consumo Casa">
   <ba-am-chart baAmChartClass="dashboard-line-chart" [baAmChartConfiguration]="chartData" (onChartReady)="initChart($event)"></ba-am-chart>
 </ba-card>

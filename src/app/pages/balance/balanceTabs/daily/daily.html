@@ -1,3 +1,6 @@
+<!-- Busy-Loading Indicator -->
+<div [ngBusy]="{busy: busy, message: 'Aggiornamento in corso...', backdrop: false, delay: 0, minDuration: 500}"></div>
+
 <ba-card title="Giornaliero">
   <div class="row">
     <div class="col-xlg-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 date" style="margin-top: 50px;">
@@ -8,7 +11,7 @@
         <div class="input-group">
           <input type="text" #day class="form-control with-primary-addon" [ngModel]="dt | date:'d/MM/yyyy'" (focus)="showDatePicker = true" aria-describedby="basic-addon1">
           <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
-              <datepicker [(ngModel)]="dt" (ngModelChange)="onChange(day.value)" [showWeeks]="true" (selectionDone)="showDatePicker = false" [datepickerMode]="datepickerMode" [minMode]="minMode" [maxMode]="maxMode">
+              <datepicker class="popup" [(ngModel)]="dt" (ngModelChange)="onChange(day.value)" [showWeeks]="true" (selectionDone)="showDatePicker = false" [datepickerMode]="datepickerMode" [minMode]="minMode" [maxMode]="maxMode">
               </datepicker>
           </div>
           <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showDatePicker = true"><i class="fa fa-calendar"></i></span>

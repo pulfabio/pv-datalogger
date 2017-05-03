@@ -4,6 +4,8 @@ import {DatepickerModule} from 'ng2-bootstrap/datepicker';
 import * as moment from 'moment';
 import 'moment/locale/it';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import {BalanceService} from '../../balance.service';
 
 import 'style-loader!./daily.scss';
@@ -26,6 +28,8 @@ export class Daily {
   public totalEnergyMoneySave: number;
   public percSummaryAC: string;
   public percSummaryGreen: string;
+  private subscription: Subscription = new Subscription();
+  private busy: Subscription = new Subscription();
 
   constructor(
     private _balanceService: BalanceService,
@@ -34,13 +38,24 @@ export class Daily {
 
   ngOnInit() {
     moment.locale('it');
+    this.getConnection();
     this.getTimeData(); //Get date
     this.getDailyBalanceData(); //Get charts data
   } //Call method at lifecycle hook OnInit.
 
   onChange() {
+    this.getConnection();
     this.getDailyBalanceData(); //Get charts data
   } //Call method at lifecycle hook OnInit.
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.busy.unsubscribe();
+  }
+
+  getConnection() {
+    this.busy = this._balanceService.getConnection().subscribe();
+  }
 
   //Get date:
   getTimeData() {
@@ -97,7 +112,7 @@ export class Daily {
     //Setting a fixed date in the past as APIs are not updated
     //let date = moment(this.dt).format("DD.MM.YYYY");
     let date = moment(new Date("03 apr 2016")).format("DD.MM.YYYY");
-    this._balanceService.getDailyBalanceData(date)
+    this.subscription = this._balanceService.getDailyBalanceData(date)
     .subscribe(
       dailyBalanceData => {
         console.log("daily data gotten");

@@ -4,6 +4,8 @@ import {DatepickerModule} from 'ng2-bootstrap/datepicker';
 import * as moment from 'moment';
 import 'moment/locale/it';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import {BalanceService} from '../../balance.service';
 
 import 'style-loader!./monthly.scss';
@@ -26,6 +28,8 @@ export class Monthly {
   public totalEnergyMoneySave: number;
   public percSummaryAC: string;
   public percSummaryGreen: string;
+  private subscription: Subscription = new Subscription();
+  private busy: Subscription = new Subscription();
 
   constructor(
     private _balanceService: BalanceService,
@@ -34,6 +38,7 @@ export class Monthly {
 
   ngOnInit() {
     moment.locale('it');
+    this.getConnection();
     this.getTimeData(); //Get date
     this.getMonthlyBalanceData(); //Get charts data
   } //Call method at lifecycle hook OnInit.
@@ -44,7 +49,17 @@ export class Monthly {
   // } //Call method at lifecycle hook OnInit.
 
   onChange() {
+    this.getConnection();
     this.getMonthlyBalanceData(); //Get charts data
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.busy.unsubscribe();
+  }
+
+  getConnection() {
+    this.busy = this._balanceService.getConnection().subscribe();
   }
 
   //Get date:
@@ -100,7 +115,7 @@ export class Monthly {
   getMonthlyBalanceData = () => {
     //let date = moment(this.dt).format("DD.MM.YYYY");
     let date = moment(new Date("03 apr 2016")).format("DD.MM.YYYY");
-    this._balanceService.getMonthlyBalanceData(date)
+    this.subscription = this._balanceService.getMonthlyBalanceData(date)
     .subscribe(
       monthlyBalanceData => {
         let result = this.parseMonthlyBalanceData(monthlyBalanceData);

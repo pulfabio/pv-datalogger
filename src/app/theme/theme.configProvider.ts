@@ -39,7 +39,7 @@ export class BaThemeConfigProvider {
 
     this.conf = {
       theme: {
-        name: 'ng2',
+        name: 'mint',
       },
       colors: {
         default: this.basic.default,

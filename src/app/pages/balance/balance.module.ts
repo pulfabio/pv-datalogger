@@ -3,6 +3,9 @@ import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
+// Loading/Busy indicator
+import {BusyModule} from 'angular2-busy';
+
 import { routing }       from './balance.routing';
 
 import { Daily } from './balanceTabs/daily/daily.component';
@@ -24,6 +27,7 @@ import { LOCALE_ID } from '@angular/core';
     NgaModule,
     //MomentModule,
     DatepickerModule.forRoot(),
+    BusyModule,
     routing,
   ],
   declarations: [

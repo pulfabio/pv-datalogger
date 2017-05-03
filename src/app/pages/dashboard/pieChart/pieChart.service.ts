@@ -16,8 +16,9 @@ export class PieChartService {
     private http: Http) {
   }
 
+  //Used for busy/loading indicator
   getConnection(): any {
-    return this.http.get(this.connectionUrl)
+    return this.http.get(this.summaryUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }

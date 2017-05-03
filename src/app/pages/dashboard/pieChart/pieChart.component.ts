@@ -30,7 +30,7 @@ export class PieChart {
   ) { }
 
   ngOnInit() {
-    this.getConnection();
+    //this.getConnection();
     this.getSummaryData();
   } //Call method at lifecycle hook OnInit.
 
@@ -50,7 +50,7 @@ export class PieChart {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.busy.unsubscribe();
+    //this.busy.unsubscribe();
   }
 
   getConnection() {

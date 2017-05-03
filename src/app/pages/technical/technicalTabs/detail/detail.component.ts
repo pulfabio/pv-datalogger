@@ -4,6 +4,8 @@ import {DatepickerModule} from 'ng2-bootstrap/datepicker';
 import * as moment from 'moment';
 import 'moment/locale/it';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import {TechnicalService} from '../../technical.service';
 
 import 'style-loader!./detail.scss';
@@ -21,6 +23,8 @@ export class Detail {
   public datepickerMode: string = "day";
   public minMode: string = "day";
   public maxMode: string = "day";
+  private subscription: Subscription = new Subscription();
+  private busy: Subscription = new Subscription();
 
   constructor(
     private _technicalService: TechnicalService,
@@ -29,6 +33,7 @@ export class Detail {
 
   ngOnInit() {
     moment.locale('it');
+    this.getConnection();
     this.getTimeData(); //Get date
     this.getDetailData(); //Get charts data
   } //Call method at lifecycle hook OnInit.
@@ -39,7 +44,17 @@ export class Detail {
   // } //Call method at lifecycle hook OnInit.
 
   onChange() {
+    this.getConnection();
     this.getDetailData(); //Get charts data
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.busy.unsubscribe();
+  }
+
+  getConnection() {
+    this.busy = this._technicalService.getConnectionDetail().subscribe();
   }
 
   //Get date:
@@ -96,7 +111,7 @@ export class Detail {
     //let date = moment(this.dt).format("DD.MM.YYYY");
     let date = moment(new Date("27 feb 2016")).format("DD.MM.YYYY");
     //console.log(date);
-    this._technicalService.getDetailData(date)
+    this.subscription = this._technicalService.getDetailData(date)
     .subscribe(
       detailData => {
         let result = this.parseDetailData(detailData);

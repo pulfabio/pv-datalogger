@@ -18,6 +18,13 @@ export class BalanceService {
     private http: Http) {
   }
 
+  //Used for busy/loading indicator
+  getConnection(): any {
+    return this.http.get(this.dailyUrl)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   getTimeData(): any {
     return this.http.get(this.timeUrl)
       .map(this.extractData)
