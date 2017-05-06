@@ -284,7 +284,8 @@ export class Daily {
           labelText: "[[title]]",
           valueText: "[[value]] Wh",
           equalWidths: false,
-          fontSize: 12
+          fontSize: 12,
+          color: "#666666"
         },
         graphs: [
           {

@@ -7,13 +7,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 import {EventsTabsService} from '../eventsTabs.service';
 
-import 'style-loader!./latest.scss';
+import 'style-loader!./all.scss';
 
 @Component({
-  selector: 'latest',
-  templateUrl: './latest.html'
+  selector: 'all',
+  templateUrl: './all.html'
 })
-export class Latest {
+export class All {
 
   private errorMessage: string;
   public dt: Date;
@@ -30,7 +30,7 @@ export class Latest {
     moment.locale('it');
     this.getConnection();
     this.getTimeData(); //Get date
-    this.getLatestData(); //Get charts data
+    this.getAllData(); //Get charts data
   } //Call method at lifecycle hook OnInit.
 
   ngOnDestroy() {
@@ -39,7 +39,7 @@ export class Latest {
   }
 
   getConnection() {
-    this.busy = this._eventsTabsService.getConnectionLatest().subscribe();
+    this.busy = this._eventsTabsService.getConnectionAll().subscribe();
   }
 
   //Get date:
@@ -92,19 +92,18 @@ export class Latest {
     }
   }
 
-  getLatestData = () => {
-    this.subscription = this._eventsTabsService.getLatestData()
+  getAllData = () => {
+    this.subscription = this._eventsTabsService.getAllData()
     .subscribe(
-      latestData => {
+      allData => {
         //let result = this.parseRealTimeData(realTimeData);
-        this.events = this.parseLatestData(latestData);
-        console.log(this.events[0].Message);
+        this.events = this.parseAllData(allData);
       }, //Parses response and populates charts object array
       error => this.errorMessage = <any>error
     )
   }
 
-  private parseLatestData(data) {
+  private parseAllData(data) {
     let modbus = [];
     let outputlist = [];
     let events = [];

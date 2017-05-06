@@ -93,15 +93,15 @@
 }
 
 .absorbing {
-  color: #008000;
+  color: $bgPalegreen;
 }
 
 .not-absorbing {
-  color: #cc0000;
+  color: $bgOrange;
 }
 
 .generated-energy {
-  color: #ffd700;
+  color: $bgGold;
 }
 
 .green-description {

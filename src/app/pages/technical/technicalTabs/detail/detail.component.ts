@@ -346,7 +346,8 @@ export class Detail {
           labelText: "[[title]]:",
           valueText: "[[value]]",
           equalWidths: false,
-          fontSize: 11
+          fontSize: 12,
+          color: "#666666"
         },
         graphs: [
           {

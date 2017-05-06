@@ -113,6 +113,11 @@ export class OverallChart {
 
     var layoutColors = this._baConfig.get().colors;
     var graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
+    let networkColor = this._baConfig.get().colors.bgThemesecondary;
+    let photovoltaicColor = this._baConfig.get().colors.bgThemeprimary;
+    let consumptionColor = this._baConfig.get().colors.bgGreen;
+    let batteryUpColor = this._baConfig.get().colors.bgYellow;
+    let batteryDownColor = this._baConfig.get().colors.bgGray;
 
     return {
       type: 'serial',
@@ -172,8 +177,7 @@ export class OverallChart {
           title: 'Energia Prelevata',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#cc0000",
-          //lineColor: colorHelper.hexToRgbA(graphColor, 0.3),
+          lineColor: networkColor, //"#cc0000"
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,
           type: 'smoothedLine',
@@ -187,7 +191,7 @@ export class OverallChart {
           title: 'Accumulo',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#0000ff",
+          lineColor: batteryUpColor, //"#0000ff",
           //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,
@@ -202,7 +206,7 @@ export class OverallChart {
           title: 'Prod. Fotovoltaico',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#ffd700",
+          lineColor: photovoltaicColor, //"#ffd700",
           //lineColor: colorHelper.hexToRgbA("#0000ff", 0.15),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,
@@ -217,7 +221,7 @@ export class OverallChart {
           title: 'Consumo Casa',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#008000",
+          lineColor: consumptionColor, //"#008000",
           //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,

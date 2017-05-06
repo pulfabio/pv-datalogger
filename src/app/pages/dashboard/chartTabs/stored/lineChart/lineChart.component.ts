@@ -113,6 +113,7 @@ export class StoredChart {
 
     var layoutColors = this._baConfig.get().colors;
     var graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
+    let batteryUpColor = this._baConfig.get().colors.bgYellow;
 
     return {
       type: 'serial',
@@ -163,7 +164,8 @@ export class StoredChart {
         labelText: "[[title]]:",
         valueText: "[[value]] W",
         equalWidths: false,
-        fontSize: 12
+        fontSize: 12,
+        color: "#666666"
       },
       graphs: [
         {
@@ -171,7 +173,7 @@ export class StoredChart {
           title: 'Accumulo',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#0000ff",
+          lineColor: batteryUpColor, //"#0000ff",
           //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,

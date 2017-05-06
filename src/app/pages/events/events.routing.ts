@@ -3,8 +3,8 @@ import { ModuleWithProviders } from '@angular/core';
 
 import { Events } from './events.component';
 
-import { Latest } from './eventsTabs/latest/latest.component';
-import { All } from './eventsTabs/all/all.component';
+import { Latest } from './eventsTabs/latestEvents/latest.component';
+import { All } from './eventsTabs/allEvents/all.component';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [

@@ -113,6 +113,7 @@ export class PhotovoltaicChart {
 
     var layoutColors = this._baConfig.get().colors;
     var graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
+    let photovoltaicColor = this._baConfig.get().colors.bgThemeprimary;
 
     return {
       type: 'serial',
@@ -163,7 +164,8 @@ export class PhotovoltaicChart {
         labelText: "[[title]]:",
         valueText: "[[value]] W",
         equalWidths: false,
-        fontSize: 12
+        fontSize: 12,
+        color: "#666666"
       },
       graphs: [
         {
@@ -171,7 +173,7 @@ export class PhotovoltaicChart {
           title: 'Produzione Fotovoltaico',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#ffd700",
+          lineColor: photovoltaicColor,  //"#ffd700",
           //lineColor: colorHelper.hexToRgbA("#0000ff", 0.15),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,

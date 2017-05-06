@@ -111,6 +111,7 @@ export class NetworkChart {
 
     });
 
+    let networkColor = this._baConfig.get().colors.bgThemesecondary;
     var layoutColors = this._baConfig.get().colors;
     var graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
 
@@ -163,7 +164,8 @@ export class NetworkChart {
         labelText: "[[title]]:",
         valueText: "[[value]] W",
         equalWidths: false,
-        fontSize: 12
+        fontSize: 12,
+        color: "#666666"
       },
       graphs: [
         {
@@ -171,7 +173,7 @@ export class NetworkChart {
           title: 'Energia Prelevata',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#cc0000",
+          lineColor: networkColor, //"#cc0000",
           //lineColor: colorHelper.hexToRgbA(graphColor, 0.3),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,

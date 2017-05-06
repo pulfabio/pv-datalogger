@@ -210,63 +210,63 @@ export class Notifications {
 
     // ReteAc
     if (EReteAcClass == "") {
-      ReteColor = "blue";
+      ReteColor = "palegreen";
       EReteAcDt = "";
-      EReteAcClass = "fa fa-plug bordered-1 bordered-palegreen palegreen";
+      EReteAcClass = "fa fa-plug";
     }
     else if(EReteAcClass == "green")
     {
       ReteColor = "green";
       EReteAcDt = EventsLastDt;
-      EReteAcClass = "fa fa-plug bordered-1 bordered-green green";
+      EReteAcClass = "fa fa-plug";
     }
     else if(EReteAcClass == "red")
     {
       ReteColor = "red";
       EReteAcDt = EventsLastDt;
-      EReteAcClass = "fa fa-plug bordered-1 bordered-red red";
+      EReteAcClass = "fa fa-plug";
     }
 
         // Tensione FV OverVoltage
     if (PVOverVoltage == 1) {
       if (ETensioneFVClass == "") {
-        TensioneColor = "blue";
+        TensioneColor = "palegreen";
         ETensioneFVDt = "";
-        ETensioneFVClass = "fa fa-arrow-up bordered-1 bordered-palegreen palegreen";
+        ETensioneFVClass = "fa fa-arrow-up";
       }
       else if (ETensioneFVClass == "green") {
         TensioneColor = "green";
         ETensioneFVDt = EventsLastDt;
-        ETensioneFVClass = "fa fa-arrow-up bordered-1 bordered-green green";
+        ETensioneFVClass = "fa fa-arrow-up";
       }
       else if (ETensioneFVClass == "red") {
         TensioneColor = "red";
         ETensioneFVDt = EventsLastDt;
-        ETensioneFVClass = "fa fa-arrow-up bordered-1 bordered-red red";
+        ETensioneFVClass = "fa fa-arrow-up";
       }
     }
     else // Tensione FV UnderVoltage
     {
       if (ETensioneFVClass == "") {
-        TensioneColor = "blue";
+        TensioneColor = "palegreen";
         ETensioneFVDt = "";
-        ETensioneFVClass = "fa fa-arrow-down bordered-1 bordered-palegreen palegreen";
+        ETensioneFVClass = "fa fa-arrow-down";
       }
       else if (ETensioneFVClass == "green") {
         TensioneColor = "green";
         ETensioneFVDt = EventsLastDt;
-        ETensioneFVClass = "fa fa-arrow-down bordered-1 bordered-green green";
+        ETensioneFVClass = "fa fa-arrow-down";
       }
       else if (ETensioneFVClass == "red") {
         TensioneColor = "red";
         ETensioneFVDt = EventsLastDt;
-        ETensioneFVClass = "fa fa-arrow-down bordered-1 bordered-red red";
+        ETensioneFVClass = "fa fa-arrow-down";
       }
     }
 
     //Battery
     if (EBatteryClass == "") {
-      BatteryColor = "blue";
+      BatteryColor = "palegreen";
       EBatteryDt = "";
       EBatteryClass = "fa fa-battery-4";// bordered-1 bordered-palegreen palegreen";
     }
@@ -285,61 +285,60 @@ export class Notifications {
 
     //Sovraccarico
     if (EOverLoadClass == "") {
-      OverLoadColor = "blue";
+      OverLoadColor = "palegreen";
       EOverLoadDt = "";
-      EOverLoadClass = "fa fa-bolt bordered-1 bordered-palegreen palegreen";
+      EOverLoadClass = "fa fa-bolt";
     }
     else if(EOverLoadClass == "green")
     {
       OverLoadColor = "green";
       EOverLoadDt = EventsLastDt;
-      EOverLoadClass = "fa fa-bolt bordered-1 bordered-green green";
+      EOverLoadClass = "fa fa-bolt";
     }
     else if(EOverLoadClass == "red")
     {
       OverLoadColor = "red";
       EOverLoadDt = EventsLastDt;
-      EOverLoadClass = "fa fa-bolt bordered-1 bordered-red red";
+      EOverLoadClass = "fa fa-bolt";
     }
 
     //Guasto
     if (EFaultClass == "") {
-      FaultColor = "blue";
+      FaultColor = "palegreen";
       EFaultDt = "";
-      EFaultClass = "fa fa-bell-o bordered-1 bordered-palegreen palegreen";
+      EFaultClass = "fa fa-bell-o";
     }
     else if(EFaultClass == "green")
     {
       FaultColor = "green";
       EFaultDt = EventsLastDt;
-      EFaultClass = "fa fa-bell-o bordered-1 bordered-green green";
+      EFaultClass = "fa fa-bell-o";
     }
     else if(EFaultClass == "red")
     {
       FaultColor = "red";
       EFaultDt = EventsLastDt;
-      EFaultClass = "fa fa-bell-o bordered-1 bordered-red red";
+      EFaultClass = "fa fa-bell-o";
     }
 
     //ByPass
     if (EByPassClass == "") {
-      ByPassColor = "blue";
+      ByPassColor = "palegreen";
       EByPassDt = "";
-      EByPassClass = "fa fa-retweet bordered-1 bordered-palegreen palegreen";
+      EByPassClass = "fa fa-retweet";
     }
     else if(EByPassClass == "green")
     {
       ByPassColor = "green";
       EByPassDt = EventsLastDt;
-      EByPassClass = "fa fa-retweet bordered-1 bordered-green green";
+      EByPassClass = "fa fa-retweet";
     }
     else if(EByPassClass == "red")
     {
       ByPassColor = "red";
       EByPassDt = EventsLastDt;
-      EByPassClass = "fa fa-retweet bordered-1 bordered-red red";
+      EByPassClass = "fa fa-retweet";
     }
-
 
     return {
       eReteAcDt: EReteAcDt,

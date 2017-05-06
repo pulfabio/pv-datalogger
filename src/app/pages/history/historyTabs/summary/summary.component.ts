@@ -236,7 +236,8 @@ export class Summary {
         labelText: "[[title]]:",
         valueText: "[[value]] W",
         equalWidths: false,
-        fontSize: 11
+        fontSize: 12,
+        color: "#666666"
       },
       graphs: [
         {

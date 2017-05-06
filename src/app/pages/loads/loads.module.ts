@@ -8,13 +8,11 @@ import {BusyModule} from 'angular2-busy';
 
 import { routing }       from './events.routing';
 
-import { EventsTabsService } from './eventsTabs/eventsTabs.service';
-import { NotificationsService } from './notifications/notifications.service';
+import { LoadsTabsService } from './loadsTabs/loadsTabs.service';
 
-import { Events } from './events.component';
-import { Notifications } from './notifications/notifications.component';
-import { Latest } from './eventsTabs/latestEvents/latest.component';
-import { All } from './eventsTabs/allEvents/all.component';
+import { Loads } from './loads.component';
+import { Rules } from './loadsTabs/rules/rules.component';
+import { Outlets } from './loadsTabs/outlets/outlets.component';
 
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 
@@ -31,15 +29,13 @@ import { LOCALE_ID } from '@angular/core';
     routing
   ],
   declarations: [
-    Events,
-    Notifications,
-    Latest,
-    All
+    Loads,
+    Rules,
+    Outlets
   ],
   providers: [
-    EventsTabsService,
-    NotificationsService,
+    LoadsTabsService,
     { provide: LOCALE_ID, useValue: "it-IT" },
   ]
 })
-export class EventsModule {}
+export class LoadsModule {}

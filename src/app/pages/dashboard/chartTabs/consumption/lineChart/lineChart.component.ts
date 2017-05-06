@@ -113,6 +113,7 @@ export class ConsumptionChart {
 
     let layoutColors = this._baConfig.get().colors;
     let graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
+    let consumptionColor = this._baConfig.get().colors.bgGreen;
 
     return {
       type: 'serial',
@@ -164,7 +165,8 @@ export class ConsumptionChart {
         labelText: "[[title]]:",
         valueText: "[[value]] W",
         equalWidths: false,
-        fontSize: 12
+        fontSize: 12,
+        color: "#666666"
       },
       graphs: [
         {
@@ -172,7 +174,7 @@ export class ConsumptionChart {
           title: 'Consumo Casa',
           bullet: "none",
           useLineColorForBulletBorder: true,
-          lineColor: "#008000",
+          lineColor: consumptionColor, //"#008000",
           //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
           lineThickness: 2,
           negativeLineColor: layoutColors.danger,

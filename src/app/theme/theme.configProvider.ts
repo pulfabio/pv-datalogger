@@ -10,6 +10,7 @@ export class BaThemeConfigProvider {
   private colorScheme: any;
   private dashboardColors: any;
   private conf: any;
+  private originalColors: any;
 
   constructor() {
     this.basic = {
@@ -36,6 +37,18 @@ export class BaThemeConfigProvider {
       gossip: '#3c4eb9',
       white: '#ffffff',
     };
+
+    //COLORS ADDED TO MATCH ORIGINAL PROJECT
+    this.originalColors = {
+      bgThemeprimary: '#0072c6',
+      bgThemesecondary: '#fb6e52',
+      bgGreen: '#8cc474',
+      bgLightyellow: '#f6d52e',
+      bgYellow: '#ffce55',
+      bgGray: '#cccccc',
+      bgPalegreen: '#a0d468',
+      red: '#df5138',
+    }
 
     this.conf = {
       theme: {
@@ -64,6 +77,14 @@ export class BaThemeConfigProvider {
         successDark: colorHelper.shade(this.colorScheme.success, 15),
         warningDark: colorHelper.shade(this.colorScheme.warning, 15),
         dangerDark: colorHelper.shade(this.colorScheme.danger, 15),
+
+        bgThemeprimary: this.originalColors.bgThemeprimary,
+        bgThemesecondary: this.originalColors.bgThemesecondary,
+        bgGreen: this.originalColors.bgGreen,
+        bgLightyellow: this.originalColors.bglightyellow,
+        bgYellow: this.originalColors.bgYellow,
+        bgGray: this.originalColors.bgGray,
+        bgPalegreen: this.originalColors.bgPalegreen,
 
         dashboard: {
           blueStone: this.dashboardColors.blueStone,

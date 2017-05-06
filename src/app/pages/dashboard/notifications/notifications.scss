@@ -1,3 +1,5 @@
+@import "../../../theme/sass/conf/conf";
+
 .upper {
   padding-bottom: 10px;
 }
@@ -6,14 +8,14 @@
   padding-top: 10px;
 }
 
-.blue {
-  color: #0000ff;
+.palegreen {
+  color: $bgPalegreen;
 }
 
 .green {
-  color: #008000;
+  color: $bgGreen;
 }
 
 .red {
-  color: #cc0000;
+  color: $red;
 }

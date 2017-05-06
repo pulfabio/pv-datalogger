@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {BaThemeConfigProvider, colorHelper} from '../../../theme';
+import "../../../theme/sass/conf/conf";
 
 import { PieChartService } from './pieChart.service';
 
@@ -107,6 +108,7 @@ export class PieChart {
     let StoredEnergyV = {};
     let StoredEnergyW = {};
     let StoredEnergyDesc = "Accumulo";
+    let storedColor = '';
 
     let DailyGeneratedEnergy = "";
     let TotalGeneratedEnergy = "";
@@ -117,6 +119,14 @@ export class PieChart {
     let PVEnergyV = {};
     let PVEnergyW = {};
     let PVEnergyDesc = "PRODUZIONE FV";
+
+    //piecharts colors
+    let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
+    let networkColor = this._baConfig.get().colors.bgThemesecondary;
+    let photovoltaicColor = this._baConfig.get().colors.bgThemeprimary;
+    let consumptionColor = this._baConfig.get().colors.bgGreen;
+    let batteryUpColor = this._baConfig.get().colors.bgYellow;
+    let batteryDownColor = this._baConfig.get().colors.bgGray;
 
     (<any>Object).entries(data.Result).forEach(([key, value]) => {
       modbus.push(value);
@@ -211,18 +221,19 @@ export class PieChart {
               if (PVEnergyW <= 0) {
                 isStoredEnergy = false;
                 let numberStoredEnergyPercent = 0;
-
+                storedColor = batteryDownColor;
                 StoredEnergyDesc = "Accumulo in riposo";
               }
               else
               {
                 isStoredEnergy = true;
                 let numberStoredEnergyPercent = StoredEnergyPercent;
+                storedColor = batteryUpColor;
               }
             }
             else {
               isAbsorbingGreen = true;
-
+              storedColor = batteryUpColor;
               if (PVEnergyW <= 0) {
                 StoredEnergyDesc = "Accumulo in scarica";
               }
@@ -243,31 +254,31 @@ export class PieChart {
     });
 
     //Step 2: Populating charts object array for summary piecharts
-    let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
+
     let chartsData = [
       {
-        color: '#cc0000',
+        color: networkColor, //'#e85656',//'#cc0000',
         description: 'Energia Prelevata',
         percent : GetByEnelPercent,
         statsW: GetByEnelW + ' W',
         statsV: GetByEnelV + ' V',
         icon: 'fa-plug',
       }, {
-        color: '#ffd700',
+        color: photovoltaicColor, //'#209e91', //'#ffd700',
         description: 'Produzione FV',
         percent: PVEnergyPercent,
         statsW: PVEnergyW + ' W',
         statsV: PVEnergyV + ' V',
         icon: 'fa-sun-o',
       }, {
-        color: '#008000',
+        color: consumptionColor, //'#90b900', //'#008000',
         description: 'Consumo Casa',
         percent: HomeConsumptionPercent,
         statsW: HomeConsumptionW + ' W',
         statsV: HomeConsumptionV + ' V',
         icon: 'fa-home',
       }, {
-        color: '#0000ff',//'#FFCE55',
+        color: storedColor, //#0000ff',//'#FFCE55',
         description: StoredEnergyDesc,
         percent: StoredEnergyPercent,
         statsW: StoredEnergyW + ' W',

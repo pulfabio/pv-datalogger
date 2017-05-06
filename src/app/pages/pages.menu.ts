@@ -155,6 +155,36 @@ export const PAGES_MENU = [
         ]
       },
       {
+        path: 'events',
+        data: {
+          menu: {
+            title: 'Eventi',
+            icon: 'ion-android-calendar',
+            selected: false,
+            expanded: false,
+            order: 80,
+          }
+        },
+        children: [
+          {
+            path: 'latest',
+            data: {
+              menu: {
+                title: 'Eventi Recenti'
+              }
+            }
+          },
+          {
+            path: 'all',
+            data: {
+              menu: {
+                title: 'Tutti gli Eventi'
+              }
+            }
+          },
+        ]
+      },
+      {
         path: '',
         data: {
           menu: {
