@@ -15,7 +15,7 @@ export class BaThemeConfigProvider {
   constructor() {
     this.basic = {
       default: '#ffffff',
-      defaultText: '#ffffff',
+      defaultText: '#666666', //'#ffffff',
       border: '#dddddd',
       borderDark: '#aaaaaa',
     };

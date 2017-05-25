@@ -2,15 +2,17 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx'; //For test w/o server side
+import { Observable } from 'rxjs/Rx';
+
+import {ApiUrl} from '../../../../shared/constants/apiUrl';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class PieChartService {
-  private connectionUrl = "http://bws-datalogger.besquare.it/api/Internet";
-  private summaryUrl = "http://bws-datalogger.besquare.it/api/DashBoardSummary04";
+  private connectionUrl = ApiUrl.API_URL + "Internet";
+  private summaryUrl = ApiUrl.API_URL + "DashBoardSummary04";
 
   constructor(
     private http: Http) {

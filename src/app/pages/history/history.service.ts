@@ -2,16 +2,18 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx'; //For test w/o server side
+import { Observable } from 'rxjs/Rx';
+
+import {ApiUrl} from '../../../shared/constants/apiUrl';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class HistoryService {
-  private timeUrl = "http://bws-datalogger.besquare.it/api/DashBoardDateTimeWeather04";
-  private summaryUrl = "http://bws-datalogger.besquare.it/api/DashBoardRealTime04History?date=";
-  private detailUrl = "http://bws-datalogger.besquare.it/api/ModBusReaderRegistry04History?date=";
+  private timeUrl = ApiUrl.API_URL + "DashBoardDateTimeWeather04";
+  private summaryUrl = ApiUrl.API_URL + "DashBoardRealTime04History?date=";
+  private detailUrl = ApiUrl.API_URL + "ModBusReaderRegistry04History?date=";
 
   constructor(
     private http: Http) {

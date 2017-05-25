@@ -21,6 +21,12 @@ import { PagesModule } from './pages/pages.module';
 
 import {AuthService} from "../shared/services/auth.service";
 
+// CookieService
+import { CookieModule } from 'ngx-cookie';
+
+//Interceptor, i.e. for common headers
+import { HttpInterceptorModule, HttpInterceptorService } from 'ng-http-interceptor';
+
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
@@ -33,14 +39,14 @@ export type StoreType = {
   disposeOldHosts: () => void
 };
 
-// Typing for selfbits config variable
+// Typing for selfbits config variable (NOT USED ANYMORE!)
 export interface AppConfig {
   BASE_URL:string,
   APP_ID:string,
   APP_SECRET:string
 }
 
-//Selfbits config variable
+//Selfbits config variable (NOT USED ANYMORE!)
 export const APPCONFIG:AppConfig = {
     BASE_URL: 'https://ensolar-api.selfbits.io',
     APP_ID: '8298054e8f38c3e58cc46aed42ba4729',
@@ -62,6 +68,8 @@ export const APPCONFIG:AppConfig = {
     FormsModule,
     ReactiveFormsModule,
     NgaModule.forRoot(),
+    CookieModule.forRoot(),
+    HttpInterceptorModule,
     PagesModule,
     BrowserAnimationsModule,
     routing
@@ -70,7 +78,8 @@ export const APPCONFIG:AppConfig = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     AuthService,
-    {provide:'APP_CONFIG_TOKEN', useValue:APPCONFIG}
+    HttpInterceptorService,
+    {provide:'APP_CONFIG_TOKEN', useValue:APPCONFIG} //(Selfbits, NOT USED ANYMORE!!!)
   ]
 })
 

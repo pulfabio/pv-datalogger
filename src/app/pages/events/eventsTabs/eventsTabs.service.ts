@@ -2,16 +2,18 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx'; //For test w/o server side
+import { Observable } from 'rxjs/Rx';
+
+import {ApiUrl} from '../../../../shared/constants/apiUrl';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class EventsTabsService {
-  private timeUrl = "http://bws-datalogger.besquare.it/api/DashBoardDateTimeWeather04";
-  private latestUrl = "http://bws-datalogger.besquare.it/api/DashBoardRealTime02";
-  private allUrl = "http://bws-datalogger.besquare.it/api/DashBoardRealTime02History";
+  private timeUrl = ApiUrl.API_URL + "DashBoardDateTimeWeather04";
+  private latestUrl = ApiUrl.API_URL + "DashBoardRealTime02";
+  private allUrl = ApiUrl.API_URL + "DashBoardRealTime02History";
 
   constructor(
     private http: Http) {

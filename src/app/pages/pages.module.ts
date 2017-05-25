@@ -6,13 +6,16 @@ import { NgaModule } from '../theme/nga.module';
 
 import { Pages } from './pages.component';
 
+import { AuthGuardService } from "../../shared/services/auth-guard.service";
+
 @NgModule({
   imports: [
     CommonModule,
     NgaModule,
     routing
   ],
-  declarations: [Pages]
+  declarations: [Pages],
+  providers: [AuthGuardService],
 })
 export class PagesModule {
 }

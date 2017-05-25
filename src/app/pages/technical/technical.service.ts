@@ -2,18 +2,20 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx'; //For test w/o server side
+import { Observable } from 'rxjs/Rx';
+
+import {ApiUrl} from '../../../shared/constants/apiUrl';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class TechnicalService {
-  private timeUrl = "http://bws-datalogger.besquare.it/api/DashBoardDateTimeWeather04";
-  private summaryUrl = "http://bws-datalogger.besquare.it/api/DashBoardRealTime04Technical?date=";
-  private summary2Url = "http://bws-datalogger.besquare.it/api/DashBoardRealTime02Technical?date=";
-  private detailUrl = "http://bws-datalogger.besquare.it/api/ModbusReaderRegistry04Technical?date=";
-  private detail2Url = "http://bws-datalogger.besquare.it/api/ModbusReaderRegistry02Technical?date=";
+  private timeUrl = ApiUrl.API_URL + "DashBoardDateTimeWeather04";
+  private summaryUrl = ApiUrl.API_URL + "DashBoardRealTime04Technical?date=";
+  private summary2Url = ApiUrl.API_URL + "DashBoardRealTime02Technical?date=";
+  private detailUrl = ApiUrl.API_URL + "ModbusReaderRegistry04Technical?date=";
+  private detail2Url = ApiUrl.API_URL + "ModbusReaderRegistry02Technical?date=";
 
   constructor(
     private http: Http) {

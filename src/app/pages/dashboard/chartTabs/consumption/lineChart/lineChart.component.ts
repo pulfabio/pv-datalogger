@@ -212,7 +212,7 @@ export class ConsumptionChart {
 
   initChart(chart:any) {
     let zoomChart = () => {
-      chart.zoomToIndexes(this.chartData.dataProvider.length - 250, this.chartData.dataProvider.length - 100);
+      chart.zoomToIndexes(0, this.chartData.dataProvider.length);
       //chart.zoomToDates(new Date(2013, 3), new Date(2014, 0));
     };
 

@@ -108,8 +108,8 @@ export class Summary {
   }
 
   getSummaryData = () => {
-    //let date = moment(this.dt).format("DD.MM.YYYY");
-    let date = moment(new Date("27 feb 2016")).format("DD.MM.YYYY");
+    let date = moment(this.dt).format("DD.MM.YYYY");
+    //let date = moment(new Date("27 feb 2016")).format("DD.MM.YYYY");
     //console.log(date);
     this.subscription = this._technicalService.getSummaryData(date)
     .subscribe(

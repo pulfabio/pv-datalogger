@@ -44,7 +44,7 @@ export class Register {
     if (this.form.valid) {
       // your code goes here
       // console.log(values);
-      this.auth.signup({email:values.email, password:values.passwords.password}).subscribe(res =>{
+      this.auth.signup({username:values.email, password:values.passwords.password}).subscribe(res =>{
         alert(res);
       })
     }

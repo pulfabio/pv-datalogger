@@ -4,12 +4,14 @@ import { Http, Headers, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 
+import {ApiUrl} from '../../../../shared/constants/apiUrl';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ChartTabsService {
-  private realTimeUrl = "http://bws-datalogger.besquare.it/api/DashBoardRealTime04";
+  private realTimeUrl = ApiUrl.API_URL + "DashBoardRealTime04";
 
   constructor(
     private http: Http) {

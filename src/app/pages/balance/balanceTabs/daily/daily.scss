@@ -1,3 +1,5 @@
+@import "../../../../theme/sass/conf/conf";
+
 .dashboard-line-chart {
   width: 100%;
   height: 340px;
@@ -18,4 +20,12 @@
 
 .piechart-legend {
   padding-top: 30px;
+}
+
+.savings {
+  color: $bgGreen;
+}
+
+.text-icon {
+  color: $bgGreen;
 }

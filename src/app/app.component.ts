@@ -5,6 +5,12 @@ import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/
 import { BaThemeConfig } from './theme/theme.config';
 import { layoutPaths } from './theme/theme.constants';
 
+//ng-http-interceptor for authorization headers
+import { HttpInterceptorService, getHttpHeadersOrInit } from 'ng-http-interceptor';
+
+//ngx-cookie for authorization headers
+import { CookieService } from 'ngx-cookie';
+
 import 'style-loader!./app.scss';
 import 'style-loader!./theme/initial.scss';
 
@@ -29,7 +35,9 @@ export class App {
               private _imageLoader: BaImageLoaderService,
               private _spinner: BaThemeSpinner,
               private viewContainerRef: ViewContainerRef,
-              private themeConfig: BaThemeConfig) {
+              private themeConfig: BaThemeConfig,
+              private httpInterceptor: HttpInterceptorService,
+              private _cookieService:CookieService) {
 
     themeConfig.config();
 
@@ -37,6 +45,16 @@ export class App {
 
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
+    });
+
+    this.httpInterceptor.request().addInterceptor((data, method) => {
+      //Adds authentication header
+      let globals: any = this._cookieService.getObject('globals');
+      let authdata = globals.currentUser.authdata;
+      const headers = getHttpHeadersOrInit(data, method);
+      headers.set('Authorization', 'Basic ' + authdata);
+      console.log(headers);
+      return data;
     });
   }
 

@@ -113,8 +113,8 @@ export class Monthly {
   }
 
   getMonthlyBalanceData = () => {
-    //let date = moment(this.dt).format("DD.MM.YYYY");
-    let date = moment(new Date("03 apr 2016")).format("DD.MM.YYYY");
+    let date = moment(this.dt).format("DD.MM.YYYY");
+    //let date = moment(new Date("03 apr 2016")).format("DD.MM.YYYY");
     this.subscription = this._balanceService.getMonthlyBalanceData(date)
     .subscribe(
       monthlyBalanceData => {
@@ -233,6 +233,8 @@ export class Monthly {
 
     let layoutColors = this._baConfig.get().colors;
     let graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
+    let consumptionColor = this._baConfig.get().colors.bgGreen;
+    let networkColor = this._baConfig.get().colors.bgThemesecondary;
 
     return {
       chartData: {
@@ -294,7 +296,7 @@ export class Monthly {
             title: 'Energia assorbita dal fornitore',
             bullet: "none",
             useLineColorForBulletBorder: true,
-            lineColor: "#cc0000",//"#ff6c60",
+            lineColor: networkColor, //"#cc0000",//"#ff6c60",
             //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
             lineThickness: 2,
             negativeLineColor: layoutColors.danger,
@@ -310,7 +312,7 @@ export class Monthly {
             title: 'Energia consumata autoprodotta',
             bullet: "none",
             useLineColorForBulletBorder: true,
-            lineColor: "#008000", //"#a9d86e",
+            lineColor: consumptionColor, //"#008000", //"#a9d86e",
             //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
             lineThickness: 2,
             negativeLineColor: layoutColors.danger,
@@ -366,8 +368,8 @@ export class Monthly {
           alpha: 0
         } ],
         colors: [
-          "#cc0000",
-          "#008000"
+          networkColor, //"#cc0000",
+          consumptionColor //"#008000"
         ],
         // "legend": {
         //   "position":"top",

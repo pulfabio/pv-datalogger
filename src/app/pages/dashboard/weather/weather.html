@@ -12,25 +12,30 @@
         <div class="row location">
           <i class="icon fa fa-map-marker"></i>
           {{ weatherCity }}
-          ({{ weathercountry }})
+          ({{ weatherCountry }})
         </div>
-        <div class="row description">
+        <div class="row weather-icon">
+          <i class="icon wi {{ weatherIcon }}"></i>
           {{ weatherDescription }}
         </div>
+       <!--  <div class="row description">
+          {{ weatherDescription }}
+        </div> -->
         <div class="row temperature">
-          {{ weatherTemperature }}°
-          <i class="icon wi {{ weatherIcon }}"></i>
+          Temperatura: {{ weatherTemperature }}°
         </div>
       </div>
       <div class="col-xs-5 offset-xs-1 details-data">
         <div class="row details">
           <i class="icon wi wi-thermometer-exterior"></i>
-          &nbsp;Min: {{ weatherTemperatureMin }}°
+          Min: {{ weatherTemperatureMin }}°/ <!-- &nbsp; -->
+          <i class="icon wi wi-thermometer"></i>
+          Max: {{ weatherTemperatureMax }}°
         </div>
-        <div class="row details">
+        <!-- <div class="row details">
           <i class="icon wi wi-thermometer"></i>
           &nbsp;Max: {{ weatherTemperatureMax }}°
-        </div>
+        </div> -->
         <div class="row details">
           <i class="icon wi wi-humidity hidden-md"></i>
           Umidità: {{ weatherHumidity }}%

@@ -2,14 +2,16 @@ import {Injectable} from '@angular/core';
 
 import { Http, Headers, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx'; //For test w/o server side
+import { Observable } from 'rxjs/Rx';
+
+import {ApiUrl} from '../../../../shared/constants/apiUrl';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class NotificationsService {
-  private notificationsUrl = "http://bws-datalogger.besquare.it/api/DashBoardSummary02";
+  private notificationsUrl = ApiUrl.API_URL + "DashBoardSummary02";
 
   constructor(
     private http: Http) {

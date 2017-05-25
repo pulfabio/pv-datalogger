@@ -3,7 +3,7 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 
 import 'style-loader!./login.scss';
 
-import {Router} from '@angular/router'
+import {Router} from '@angular/router';
 import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
@@ -34,10 +34,15 @@ export class Login {
     if (this.form.valid) {
       // your code goes here
       // console.log(values);
-      this.auth.login({email:values.email, password:values.password}).subscribe(
+      this.auth.clearCredentials();
+      this.auth.login({username:values.email, password:values.password}).subscribe(
         res => {
-        if(res.status === 200){
+        if(res.success){
+          this.auth.setCredentials({username:values.email, password:values.password});
           this.router.navigate(['pages']);
+        } else {
+          this.error = true;
+          this.errorMessage = res.json().message;
         }
       }, err => {
         //do something with error

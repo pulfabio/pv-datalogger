@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BaThemeConfigProvider, colorHelper, layoutPaths} from '../../../../theme';
-import {DatepickerModule} from 'ng2-bootstrap/datepicker';
+import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 import * as moment from 'moment';
 import 'moment/locale/it';
 
@@ -45,6 +45,7 @@ export class Annual {
   } //Call method at lifecycle hook OnInit.
 
   onChange() {
+    console.log(this.dt);
     this.getConnection();
     this.getAnnualBalanceData(); //Get charts data
   }
@@ -228,6 +229,8 @@ export class Annual {
 
     let layoutColors = this._baConfig.get().colors;
     let graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
+    let consumptionColor = this._baConfig.get().colors.bgGreen;
+    let networkColor = this._baConfig.get().colors.bgThemesecondary;
 
     return {
       chartData: {
@@ -299,7 +302,7 @@ export class Annual {
             title: 'Energia assorbita dal fornitore',
             bullet: "none",
             useLineColorForBulletBorder: true,
-            lineColor: "#cc0000",//"#ff6c60",
+            lineColor: networkColor, //"#cc0000",//"#ff6c60",
             //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
             lineThickness: 2,
             negativeLineColor: layoutColors.danger,
@@ -315,7 +318,7 @@ export class Annual {
             title: 'Energia consumata autoprodotta',
             bullet: "none",
             useLineColorForBulletBorder: true,
-            lineColor: "#008000", //"#a9d86e",
+            lineColor: consumptionColor, //"#008000", //"#a9d86e",
             //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
             lineThickness: 2,
             negativeLineColor: layoutColors.danger,
@@ -371,8 +374,8 @@ export class Annual {
           alpha: 0
         } ],
         colors: [
-          "#cc0000",
-          "#008000"
+          networkColor, //"#cc0000",
+          consumptionColor //"#008000"
         ],
         // "legend": {
         //   "position":"top",

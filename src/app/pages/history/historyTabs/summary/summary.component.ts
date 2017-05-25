@@ -108,8 +108,8 @@ export class Summary {
 
   getSummaryData = () => {
     //Setting a fixed date in the past as APIs are not updated
-    //let date = moment(this.dt).format("DD.MM.YYYY");
-    let date = moment(new Date("27 feb 2016")).format("DD.MM.YYYY");
+    let date = moment(this.dt).format("DD.MM.YYYY");
+    //let date = moment(new Date("27 feb 2016")).format("DD.MM.YYYY");
     this.subscription = this._historyService.getSummaryData(date)
     .subscribe(
       summaryData => {
