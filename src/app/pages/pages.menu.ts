@@ -7,7 +7,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Cruscotto',
-            icon: 'ion-android-home',
+            icon: 'fa fa-home fa-lg', //'ion-android-home',
             selected: false,
             expanded: false,
             order: 0
@@ -61,7 +61,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Bilancio',
-            icon: 'ion-ios-pulse-strong',
+            icon: 'fa fa-bar-chart fa-lg', //'ion-stats-bars',
             selected: false,
             expanded: false,
             order: 50,
@@ -99,7 +99,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Storico',
-            icon: 'ion-stats-bars',
+            icon: 'fa fa-line-chart fa-lg', //'ion-ios-pulse-strong',
             selected: false,
             expanded: false,
             order: 60,
@@ -129,7 +129,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Area Tecnica',
-            icon: 'ion-wrench',
+            icon: 'fa fa-wrench fa-lg', //'ion-wrench',
             selected: false,
             expanded: false,
             order: 70,
@@ -159,7 +159,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Eventi',
-            icon: 'ion-android-calendar',
+            icon: 'fa fa-calendar fa-lg', //'ion-android-calendar',
             selected: false,
             expanded: false,
             order: 80,
@@ -182,6 +182,36 @@ export const PAGES_MENU = [
               }
             }
           },
+        ]
+      },
+      {
+        path: 'loads',
+        data: {
+          menu: {
+            title: 'Gestione Carichi',
+            icon: 'fa fa-balance-scale fa-lg',
+            selected: false,
+            expanded: false,
+            order: 80,
+          }
+        },
+        children: [
+          {
+            path: 'rules',
+            data: {
+              menu: {
+                title: 'Regole'
+              }
+            }
+          },
+          {
+            path: 'contacts',
+            data: {
+              menu: {
+                title: 'Contatti'
+              }
+            }
+          }
         ]
       },
       // {
@@ -214,18 +244,18 @@ export const PAGES_MENU = [
       //     }
       //   ]
       // },
-      {
-        path: '',
-        data: {
-          menu: {
-            title: 'External Link',
-            url: 'http://akveo.com',
-            icon: 'ion-android-exit',
-            order: 800,
-            target: '_blank'
-          }
-        }
-      }
+      // {
+      //   path: '',
+      //   data: {
+      //     menu: {
+      //       title: 'External Link',
+      //       url: 'http://akveo.com',
+      //       icon: 'ion-android-exit',
+      //       order: 800,
+      //       target: '_blank'
+      //     }
+      //   }
+      // }
     ]
   }
 ];

@@ -22,6 +22,7 @@ export class Contacts {
   public modal: ModalComponent;
   private errorMessage: string;
   public contactsList: Array<any>;
+  public checked: any = {};
   private subscription: Subscription = new Subscription();
   private subscriptionNameSavedWatt: Subscription = new Subscription();
   private subscriptionNameSaved: Subscription = new Subscription();
@@ -61,6 +62,9 @@ export class Contacts {
       contacts => {
         //let result = this.parseRealTimeData(realTimeData);
         this.contactsList = this.parseContacts(contacts);
+        for (let i = 0; i < this.contactsList.length; i++) {
+          this.checked[this.contactsList[i].id] = false;
+        }
       },
       error => this.errorMessage = <any>error
     )
@@ -71,7 +75,7 @@ export class Contacts {
     let contacts = [];
 
     (<any>Object).entries(data.Result).forEach(([key, value]) => {
-    modbus = value;
+    modbus.push(value);
     });
 
     (<any>Object).entries(modbus[0]).forEach(([key2, value2]) => {
@@ -81,11 +85,11 @@ export class Contacts {
     return contacts;
   }
 
-  public onContactNameClicked = function(id){
-    for(let i=0; i < this.contactsList.length; i++){
-      if( id == this.contactsList[i].id ){
+  public onContactNameClicked = function(id) {
+    for (let i=0; i < this.contactsList.length; i++) {
+      if ( id == this.contactsList[i].id ){
         this.contactsList[i].edit = true;
-      }else{
+      } else {
         this.contactsList[i].edit = false;
       }
     }
@@ -128,7 +132,7 @@ export class Contacts {
   public onContactNameSaved = (id) => {
     for (let i = 0; i < this.contactsList.length; i++) {
       if (id == this.contactsList[i].id) {
-        this.contactsList[i].editpower = false;
+        this.contactsList[i].edit = false;
 
         this.subscriptionNameSaved = this._loadsTabsService.contactSaved(this.contactsList[i])
         .subscribe(
@@ -153,6 +157,7 @@ export class Contacts {
     let outputpin = {
       outputpinstate: false
     };
+    console.log(checkbox);
 
     if (checkbox) {
       outputpin = {
@@ -177,7 +182,7 @@ export class Contacts {
     )
 
     this.modalTitle = "Impostazione manuale contatto";
-    this.modal.show();
+    //this.modal.show();
 
   };
 

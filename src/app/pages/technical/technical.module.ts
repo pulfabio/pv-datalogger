@@ -15,7 +15,7 @@ import { Technical } from './technical.component';
 import { Summary } from './technicalTabs/summary/summary.component';
 import { Detail } from './technicalTabs/detail/detail.component';
 
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LOCALE_ID } from '@angular/core';
 

@@ -4,7 +4,7 @@ import { Http, Headers, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 
-import {ApiUrl} from '../../../../shared/constants/apiUrl';
+import {ApiUrl} from '../../../shared/constants/apiUrl';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';

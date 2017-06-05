@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BaThemeConfigProvider, colorHelper, layoutPaths} from '../../../../theme';
-import {DatepickerModule} from 'ng2-bootstrap/datepicker';
+import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 import * as moment from 'moment';
 import 'moment/locale/it';
 

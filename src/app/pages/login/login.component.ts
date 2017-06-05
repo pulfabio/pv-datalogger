@@ -37,18 +37,20 @@ export class Login {
       this.auth.clearCredentials();
       this.auth.login({username:values.email, password:values.password}).subscribe(
         res => {
-        if(res.success){
-          this.auth.setCredentials({username:values.email, password:values.password});
-          this.router.navigate(['pages']);
-        } else {
+          console.log(res);
+          if(res.success){
+            this.auth.setCredentials({username:values.email, password:values.password});
+            this.router.navigate(['pages']);
+          } else {
+            this.error = true;
+            this.errorMessage = res.message;
+          }
+        }, err => {
+          //do something with error
           this.error = true;
-          this.errorMessage = res.json().message;
+          this.errorMessage = err.json().message;
         }
-      }, err => {
-        //do something with error
-        this.error = true;
-        this.errorMessage = err.json().message;
-      })
+      )
     }
   }
 }

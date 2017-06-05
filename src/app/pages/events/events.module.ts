@@ -16,7 +16,7 @@ import { Notifications } from './notifications/notifications.component';
 import { Latest } from './eventsTabs/latestEvents/latest.component';
 import { All } from './eventsTabs/allEvents/all.component';
 
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LOCALE_ID } from '@angular/core';
 

@@ -3,7 +3,7 @@
 
 <ba-card title="Modifica Regola">
   <form #editRuleForm="ngForm" (ngSubmit)="formSubmit()" id="editRuleDialogForm1">
-    <input type="hidden" [(ngModel)]="editRule.ruleId" name="ruleId" id="ruleId" value="0" /> <!-- Tells back-end that this is a new rule, value is 0, unlike in edit-rule -->
+    <input type="hidden" [(ngModel)]="editRule.ruleId" name="ruleId" id="ruleId" />
     <div class="row">
       <div class="col-xs-12">
         <div class="alert alert-info">
@@ -37,7 +37,7 @@
           </select>
 
           <label for="setOn_ruleFactorId">Accendi in base a:</label>
-          <select id="setOn_ruleFactorId" name="setOn_ruleFactorId" class="form-control" [(ngModel)]="setOn_ruleFactorId">
+          <select id="setOn_ruleFactorId" name="setOn_ruleFactorId" class="form-control" [(ngModel)]="editRule.setOn_ruleFactorId">
             <option value="">seleziona...</option>
             <option value="1">Orario</option>
             <option value="2">Produzione PV</option>
@@ -48,29 +48,38 @@
 
         <!-- PARTE VARIABILE A SECONDA DELLA SELEZIONE DEL RULEFACTORYID -->
         <div id="factorOnSubmenu">
-          <div id="factorOn1" *ngIf="setOn_ruleFactorId==1">
-            <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Seleziona l' orario e la cadenza</h4>
+          <div id="factorOn1" *ngIf="editRule.setOn_ruleFactorId==1">
+            <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Seleziona l'orario e la cadenza</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label> Orario di <span class="und">accensione</span> </label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOn_time_sign" id="setOn_time_sign" [(ngModel)]="editRule.setOn_time_sign" class="setOnSignSelect" value="LT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
-                        <input type="text" #setOn_time id="setOn_time" name="setOn_time" class="form-control with-primary-addon" [ngModel]="editRule.setOn_time | date:'HH:mm:ss'" (focus)="showTimePicker = true" (blur)="showTimePicker = false" aria-describedby="basic-addon1">
-                        <div *ngIf="showTimePicker" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
-                            <timepicker class="popup" [(ngModel)]="editRule.setOn_time" [showMeridian]="false">
-                            </timepicker>
+                        <input type="text" #setOn_time id="setOn_time" name="setOn_time" class="form-control with-primary-addon" [ngModel]="editRule.setOn_time" (focus)="showTimePickerOn = true" aria-describedby="basic-addon1">
+                        <div class="timepicker" *ngIf="showTimePickerOn" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
+                          <!-- <timepicker class="popup" name="timepicker" [(ngModel)]="editRule.setOn_time" [showMeridian]="false" [showSpinners]="true" [minuteStep]="1"
+                          [readonlyInput]="false"
+                          [mousewheel]="true"
+                          [arrowkeys]="true">
+                          </timepicker> -->
+                          <ngb-timepicker class="popup" name="tp1" [(ngModel)]="timeOn"
+                          [seconds]="true"
+                          (ngModelChange)="changeSetOn_time(timeOn)">
+                          </ngb-timepicker>
+                          <button type="button" class="btn btn-primary" (click)="showTimePickerOn = false">Chiudi Timepicker</button>
                         </div>
-                        <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showTimePicker = true"><i class="fa fa-clock-o"></i></span>
-                    </div>
+
+                        <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showTimePickerOn = true"><i class="fa fa-clock-o"></i></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83,7 +92,7 @@
                     <option value="W">Settimanale</option>
                   </select>
 
-                  <div id="setOn_cadenza_weeks_container">
+                  <div *ngIf="editRule.setOn_cadenza=='W'" id="setOn_cadenza_weeks_container">
                     <label>Selezionare i giorni</label>
                     <table class="table table-default weekDaySelector">
                       <tbody>
@@ -109,26 +118,26 @@
                     </table>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOn_time_green" id="setOn_time_green" [(ngModel)]="editRule.setOn_time_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOn_time_green" id="setOn_time_green" [(ngModel)]="editRule.setOn_time_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
 
-          <div id="factorOn2" *ngIf="setOn_ruleFactorId==2">
+          <div id="factorOn2" *ngIf="editRule.setOn_ruleFactorId==2">
             <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Valore di produzione PV</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label>Valore per <span class="und">accensione</span> </label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOn_pvprod_sign" id="setOn_pvprod_sign" [(ngModel)]="editRule.setOn_pvprod_sign" class="setOnSignSelect" value="GT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
                         <input type="text" name="setOn_pvprod" id="setOn_pvprod" [(ngModel)]="editRule.setOn_pvprod" class="form-control" value="" />
                         <span class="input-group-addon">  Watt  </span>
@@ -137,49 +146,49 @@
                   </div>
                 </div>
                 <div class="entry">
-                  <label>Isteresi</label>
+                  <label>Insteresi</label>
                   <div class="input-group">
-                    <counter [count]="editRule.setOn_pvprod_ist"></counter> <!-- Custom counter component -->
-                    <input type="text" name="setOn_pvprod_ist" id="setOn_pvprod_ist" [(ngModel)]="editRule.setOn_pvprod_ist" class="form-control" value="10" readonly="readonly" />
+                    <counter [count]="editRule.setOn_pvprod_ist" (countChanged)="updateCount($event, 'setOn_pvprod_ist')"></counter> <!-- Custom counter component -->
+                    <input type="text" name="setOn_pvprod_ist" id="setOn_pvprod_ist" [(ngModel)]="editRule.setOn_pvprod_ist" class="form-control" [readonly]="true" />
                     <span class="input-group-addon">  % </span>
                   </div>
                 </div>
                 <div class="entry">
                   <label>Delay</label>
                   <div class="input-group">
-                    <counter [count]="editRule.setOn_pvprod_delay"></counter> <!-- Custom counter component -->
-                    <input type="text" name="setOn_pvprod_delay" id="setOn_pvprod_delay" [(ngModel)]="editRule.setOn_pvprod_delay" class="form-control" value="10" readonly="readonly" />
+                    <counter [count]="editRule.setOn_pvprod_delay" (countChanged)="updateCount($event, 'setOn_pvprod_delay')"></counter> <!-- Custom counter component -->
+                    <input type="text" name="setOn_pvprod_delay" id="setOn_pvprod_delay" [(ngModel)]="editRule.setOn_pvprod_delay" class="form-control" [readonly]="true" />
                     <span class="input-group-addon">  sec </span>
                   </div>
                 </div>
                 <div class="entry">
                   <label>Timer</label>
                   <div class="input-group">
-                    <counter [count]="editRule.setOn_pvprod_timer"></counter> <!-- Custom counter component -->
-                    <input type="text" name="setOn_pvprod_timer" id="setOn_pvprod_timer" [(ngModel)]="editRule.setOn_pvprod_timer" class="form-control" value="30" readonly="readonly" />
+                    <counter [count]="editRule.setOn_pvprod_timer" (countChanged)="updateCount($event, 'setOn_pvprod_timer')"></counter> <!-- Custom counter component -->
+                    <input type="text" name="setOn_pvprod_timer" id="setOn_pvprod_timer" [(ngModel)]="editRule.setOn_pvprod_timer" class="form-control" [readonly]="true" />
                     <span class="input-group-addon">  sec </span>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOn_pvprod_green" id="setOn_pvprod_green" [(ngModel)]="editRule.setOn_pvprod_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOn_pvprod_green" id="setOn_pvprod_green" [(ngModel)]="editRule.setOn_pvprod_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
 
-          <div id="factorOn3" *ngIf="setOn_ruleFactorId==3">
+          <div id="factorOn3" *ngIf="editRule.setOn_ruleFactorId==3">
             <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Valore in % della batteria</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label>Valore per <span class="und">accensione</span> </label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOn_batteryperc_sign" id="setOn_batteryperc_sign" [(ngModel)]="editRule.setOn_batteryperc_sign" class="setOnSignSelect" value="GT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
                         <input type="text" name="setOn_batteryperc" id="setOn_batteryperc" [(ngModel)]="editRule.setOn_batteryperc" class="form-control" value="" />
                         <span class="input-group-addon">  % </span>
@@ -187,26 +196,26 @@
                     </div>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOn_batteryperc_green" id="setOn_batteryperc_green" [(ngModel)]="editRule.setOn_batteryperc_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOn_batteryperc_green" id="setOn_batteryperc_green" [(ngModel)]="editRule.setOn_batteryperc_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
 
-          <div id="factorOn4" *ngIf="setOn_ruleFactorId==4">
+          <div id="factorOn4" *ngIf="editRule.setOn_ruleFactorId==4">
             <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Volt della batteria</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label>Valore per <span class="und">accensione</span></label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOn_batteryvolt_sign" id="setOn_batteryvolt_sign" [(ngModel)]="editRule.setOn_batteryvolt_sign" class="setOnSignSelect" value="GT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
                         <input type="text" name="setOn_batteryvolt" id="setOn_batteryvolt" [(ngModel)]="editRule.setOn_batteryvolt" class="form-control" value="" />
                         <span class="input-group-addon">  Volt  </span>
@@ -214,7 +223,7 @@
                     </div>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOn_batteryvolt_green" id="setOn_batteryvolt_green" [(ngModel)]="editRule.setOn_batteryvolt_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOn_batteryvolt_green" id="setOn_batteryvolt_green" [(ngModel)]="editRule.setOn_batteryvolt_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
@@ -232,7 +241,7 @@
             <option *ngFor="let output of contactsListOutput" value="{{output.id}}">{{output.name}}</option>
           </select>
           <label for="setOff_ruleFactorId">Spegni in base a:</label>
-          <select id="setOff_ruleFactorId" name="setOff_ruleFactorId" class="form-control" [(ngModel)]="setOff_ruleFactorId">
+          <select id="setOff_ruleFactorId" name="setOff_ruleFactorId" class="form-control" [(ngModel)]="editRule.setOff_ruleFactorId">
             <option value="">seleziona...</option>
             <option value="1">Orario</option>
             <option value="2">Produzione PV</option>
@@ -243,28 +252,37 @@
 
         <!-- PARTE VARIABILE A SECONDA DELLA SELEZIONE DEL RULEFACTORYID -->
         <div id="factorOffSubmenu">
-          <div id="factorOff1" *ngIf="setOff_ruleFactorId==1">
-            <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Seleziona l' orario e la cadenza</h4>
+          <div id="factorOff1" *ngIf="editRule.setOff_ruleFactorId==1">
+            <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Seleziona l'orario e la cadenza</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label> Orario di <span class="und">spegnimento</span> </label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOff_time_sign" id="setOff_time_sign" [(ngModel)]="editRule.setOff_time_sign" class="setOffSignSelect" value="LT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
-                        <input type="text" #setOff_time id="setOff_time" name="setOff_time" class="form-control with-primary-addon" [ngModel]="editRule.setOff_time | date:'HH:mm:ss'" (focus)="showTimePicker = true" (blur)="showTimePicker = false" aria-describedby="basic-addon1">
-                        <div *ngIf="showTimePicker" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
-                            <timepicker class="popup" [(ngModel)]="editRule.setOff_time" [showMeridian]="false">
-                            </timepicker>
+                        <input type="text" #setOff_time id="setOff_time" name="setOff_time" class="form-control with-primary-addon" [ngModel]="editRule.setOff_time" (focus)="showTimePickerOff = true" aria-describedby="basic-addon1">
+                        <div class="timepicker" *ngIf="showTimePickerOff" style="position: absolute; z-index:10; min-height:290px; opacity: 1.0;">
+                          <!-- <timepicker class="popup" name="timepicker" [(ngModel)]="editRule.setOff_time" [showMeridian]="false" [showSpinners]="true" [minuteStep]="1"
+                          [readonlyInput]="false"
+                          [mousewheel]="true"
+                          [arrowkeys]="true">
+                          </timepicker> -->
+                          <ngb-timepicker class="popup" name="timepicker" [(ngModel)]="timeOff"
+                          [seconds]="true"
+                          (ngModelChange)="changeSetOff_time(timeOff)">
+                          </ngb-timepicker>
+                          <button type="button" class="btn btn-primary" (click)="showTimePickerOff = false">Chiudi Timepicker</button>
                         </div>
-                        <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showTimePicker = true"><i class="fa fa-clock-o"></i></span>
+
+                        <span class="input-group-addon input-group-addon-primary addon-right" id="basic-addon1" (click)="showTimePickerOff = true"><i class="fa fa-clock-o"></i></span>
                       </div>
                     </div>
                   </div>
@@ -278,7 +296,7 @@
                     <option value="W">Settimanale</option>
                   </select>
 
-                  <div id="setOff_cadenza_weeks_container">
+                  <div *ngIf="editRule.setOff_cadenza=='W'" id="setOff_cadenza_weeks_container">
                     <label>Selezionare i giorni</label>
                     <table class="table table-default weekDaySelector">
                       <tbody>
@@ -304,26 +322,26 @@
                     </table>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOff_time_green" id="setOff_time_green" [(ngModel)]="editRule.setOff_time_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOff_time_green" id="setOff_time_green" [(ngModel)]="editRule.setOff_time_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
 
-          <div id="factorOff2" *ngIf="setOff_ruleFactorId==2">
+          <div id="factorOff2" *ngIf="editRule.setOff_ruleFactorId==2">
             <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Valore di produzione PV</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label>Valore per <span class="und">spegnimento</span> </label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOff_pvprod_sign" id="setOff_pvprod_sign" [(ngModel)]="editRule.setOff_pvprod_sign" class="setOffSignSelect" value="GT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
                         <input type="text" name="setOff_pvprod" id="setOff_pvprod" [(ngModel)]="editRule.setOff_pvprod" class="form-control" value="" />
                         <span class="input-group-addon">  Watt  </span>
@@ -332,49 +350,49 @@
                   </div>
                 </div>
                 <div class="entry">
-                  <label>Isteresi</label>
+                  <label>Insteresi</label>
                   <div class="input-group">
-                    <counter [count]="editRule.setOff_pvprod_ist"></counter> <!-- Custom counter component -->
-                    <input type="text" name="setOff_pvprod_ist" id="setOff_pvprod_ist" [(ngModel)]="editRule.setOff_pvprod_ist" class="form-control" value="10" readonly="readonly" />
+                    <counter [count]="editRule.setOff_pvprod_ist" (countChanged)="updateCount($event, 'setOff_pvprod_ist')"></counter> <!-- Custom counter component -->
+                    <input type="text" name="setOff_pvprod_ist" id="setOff_pvprod_ist" [(ngModel)]="editRule.setOff_pvprod_ist" class="form-control" [readonly]="true" />
                     <span class="input-group-addon">  % </span>
                   </div>
                 </div>
                 <div class="entry">
                   <label>Delay</label>
                   <div class="input-group">
-                    <counter [count]="editRule.setOff_pvprod_delay"></counter> <!-- Custom counter component -->
-                    <input type="text" name="setOff_pvprod_delay" id="setOff_pvprod_delay" [(ngModel)]="editRule.setOff_pvprod_delay" class="form-control" value="10" readonly="readonly" />
+                    <counter [count]="editRule.setOff_pvprod_delay" (countChanged)="updateCount($event, 'setOff_pvprod_delay')"></counter> <!-- Custom counter component -->
+                    <input type="text" name="setOff_pvprod_delay" id="setOff_pvprod_delay" [(ngModel)]="editRule.setOff_pvprod_delay" class="form-control" [readonly]="true" />
                     <span class="input-group-addon">  sec </span>
                   </div>
                 </div>
                 <div class="entry">
                   <label>Timer</label>
                   <div class="input-group">
-                    <counter [count]="editRule.setOff_pvprod_timer"></counter> <!-- Custom counter component -->
-                    <input type="text" name="setOff_pvprod_timer" id="setOff_pvprod_timer" [(ngModel)]="editRule.setOff_pvprod_timer" class="form-control" value="30" readonly="readonly" />
+                    <counter [count]="editRule.setOff_pvprod_timer" (countChanged)="updateCount($event, 'setOff_pvprod_timer')"></counter> <!-- Custom counter component -->
+                    <input type="text" name="setOff_pvprod_timer" id="setOff_pvprod_timer" [(ngModel)]="editRule.setOff_pvprod_timer" class="form-control" [readonly]="true" />
                     <span class="input-group-addon">  sec </span>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOff_pvprod_green" id="setOff_pvprod_green" [(ngModel)]="editRule.setOff_pvprod_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOff_pvprod_green" id="setOff_pvprod_green" [(ngModel)]="editRule.setOff_pvprod_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
 
-          <div id="factorOff3" *ngIf="setOff_ruleFactorId==3">
+          <div id="factorOff3" *ngIf="editRule.setOff_ruleFactorId==3">
             <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Valore in % della batteria</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label>Valore per <span class="und">spegnimento</span> </label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOff_batteryperc_sign" id="setOff_batteryperc_sign" [(ngModel)]="editRule.setOff_batteryperc_sign" class="setOffSignSelect" value="GT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
                         <input type="text" name="setOff_batteryperc" id="setOff_batteryperc" [(ngModel)]="editRule.setOff_batteryperc" class="form-control" value="" />
                         <span class="input-group-addon">  % </span>
@@ -382,26 +400,26 @@
                     </div>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOff_batteryperc_green" id="setOff_batteryperc_green" [(ngModel)]="editRule.setOff_batteryperc_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOff_batteryperc_green" id="setOff_batteryperc_green" [(ngModel)]="editRule.setOff_batteryperc_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
 
-          <div id="factorOff4" *ngIf="setOff_ruleFactorId==4">
+          <div id="factorOff4" *ngIf="editRule.setOff_ruleFactorId==4">
             <h4 class="sectionTitle"> <i class="fa fa-caret-right"></i> Volt della batteria</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="entry">
                   <label>Valore per <span class="und">spegnimento</span></label>
-                  <div class="tbl 100p">
-                    <div class="tbl-cell 10p">
+                  <div class="row">
+                    <div class="col-xs-2">
                       <select name="setOff_batteryvolt_sign" id="setOff_batteryvolt_sign" [(ngModel)]="editRule.setOff_batteryvolt_sign" class="setOffSignSelect" value="GT">
                         <option value=""></option>
                         <option value="GT"> &gt; </option>
                         <option value="LT"> &lt; </option>
                       </select>
                     </div>
-                    <div class="tbl-cell 90p">
+                    <div class="col-xs-10">
                       <div class="input-group">
                         <input type="text" name="setOff_batteryvolt" id="setOff_batteryvolt" [(ngModel)]="editRule.setOff_batteryvolt" class="form-control" value="" />
                         <span class="input-group-addon">  Volt  </span>
@@ -409,7 +427,7 @@
                     </div>
                   </div>
                 </div>
-                <label> <input type="checkbox" name="setOff_batteryvolt_green" id="setOff_batteryvolt_green" [(ngModel)]="editRule.setOff_batteryvolt_green" /> Modalità green attiva <i class="fa fa-leaf success"></i> </label>
+                <label> <input type="checkbox" name="setOff_batteryvolt_green" id="setOff_batteryvolt_green" [(ngModel)]="editRule.setOff_batteryvolt_green" /> Modalità green attiva <i class="fa fa-leaf leaf"></i> </label>
               </div>
             </div>
           </div>
@@ -423,6 +441,9 @@
     <hr>
 
     <button type="submit" class="btn btn-primary">Salva</button>
+
+    <button class="btn btn-default" (click)="back()">Torna alle Regole</button>
+
   </form>
 </ba-card>
 

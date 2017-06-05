@@ -15,7 +15,7 @@ import { History } from './history.component';
 import { Summary } from './historyTabs/summary/summary.component';
 import { Detail } from './historyTabs/detail/detail.component';
 
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LOCALE_ID } from '@angular/core';
 

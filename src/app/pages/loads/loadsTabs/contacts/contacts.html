@@ -3,7 +3,7 @@
 
 <ba-card title="Gestione Contatti">
   <div class="widget-body table-responsive">
-    <table class="table table-striped table-bordered table-hover contactsTable">
+    <table class="table table-bordered table-striped table-hover contactsTable">
       <thead>
         <tr>
           <th>
@@ -29,40 +29,42 @@
       <tbody>
         <tr *ngFor="let entry of contactsList">
           <td>
-            <div *ngIf"!entry.edit" style="display: inline block">
-              <div style="float: left">
-                <a (click)="onContactNameClicked({{entry.id}})" ng-click-options="{preventDoubleClick: true}">{{entry.name}}</a>
+            <div *ngIf="!entry.edit" style="display: inline block">
+              <div class="name" style="float:left">
+                <a (click)="onContactNameClicked(entry.id)" ng-click-options="{preventDoubleClick: true}">{{entry.name}}</a>
               </div>
-              <div style="float: right">
-                <a class="btn btn-info btn-xs edit editRuleBtn" (click)="onContactNameClicked({{entry.id}})" ng-click-options="{preventDoubleClick: true}"><i class="fa fa-edit"></i>Modifica</a>
+              <div class="edit" style="float:right">
+                <a class="btn btn-info btn-xs edit editRuleBtn" (click)="onContactNameClicked(entry.id)" ng-click-options="{preventDoubleClick: true}"><i class="fa fa-edit"></i>Modifica</a>
               </div>
             </div>
             <div class="input-group" *ngIf="entry.edit">
               <input type="text" class="form-control" name="contactNameEdit" value="{{entry.name}}" [(ngModel)]="entry.name" />
-              <div class="input-group-addon" style="padding: 4px 12px !important;" (click)="onContactNameSaved({{entry.id}})" ng-click-options="{preventDoubleClick: true}"><a class="btn btn-success btn-xs edit editRuleBtn"><i class="fa fa-save"></i> Salva </a></div>
+              <div class="input-group-addon" style="padding: 4px 12px !important;" (click)="onContactNameSaved(entry.id)" ng-click-options="{preventDoubleClick: true}"><a class="btn btn-success btn-xs edit editRuleBtn"><i class="fa fa-save"></i> Salva </a>
+              </div>
             </div>
           </td>
           <td *ngIf="entry.type == 'Uscita' ? true : false">
             <div *ngIf="!entry.editpower" style="display: inline block">
               <div style="float: left">
-                <a (click)="onContactNameClickedWatt({{entry.id}})" ng-click-options="{preventDoubleClick: true}">{{entry.power}}</a>
+                <a (click)="onContactNameClickedWatt(entry.id)" ng-click-options="{preventDoubleClick: true}">{{entry.power}}</a>
               </div>
-              <div style="float: right">
-                <a class="btn btn-info btn-xs edit editRuleBtn" (click)="onContactNameClickedWatt({{entry.id}})" ng-click-options="{preventDoubleClick: true}"><i class="fa fa-edit"></i>Imposta</a>
+              <div class="set" style="float: right">
+                <a class="btn btn-info btn-xs edit editRuleBtn" (click)="onContactNameClickedWatt(entry.id)" ng-click-options="{preventDoubleClick: true}" ><i class="fa fa-edit"></i>Imposta</a>
               </div>
             </div>
             <div class="input-group" *ngIf="entry.editpower">
               <input type="text" class="form-control" name="contactNameEdit" value="{{entry.power}}" [(ngModel)]="entry.power" />
-              <div class="input-group-addon" style="padding: 4px 12px !important;" (click)="onContactNameSavedWatt({{entry.id}})" ng-click-options="{preventDoubleClick: true}"><a class="btn btn-success btn-xs edit editRuleBtn"><i class="fa fa-save"></i> Salva </a></div>
+              <div class="input-group-addon" style="padding: 4px 12px !important;" (click)="onContactNameSavedWatt(entry.id)" ng-click-options="{preventDoubleClick: true}"><a class="btn btn-success btn-xs edit editRuleBtn"><i class="fa fa-save"></i> Salva </a></div>
             </div>
           </td>
           <td *ngIf="entry.type == 'Uscita' ? false : true">
+          <!-- ??? It's empty in the source file -->
           </td>
           <td class="hidden-xs">
               {{entry.type}}
           </td>
           <td>
-            <span *ngFor="label of entry.labels" class="label {{label.className}}">
+            <span *ngFor="let label of entry.labels" class="label {{label.className}}">
               {{label.text}}
             </span>
           </td>
@@ -73,18 +75,19 @@
           </td>
           <td *ngIf="entry.type == 'Ingresso' ? true : false">
             <label>
-              <!--<input class="checkbox-slider toggle ios" type="checkbox" ng-class="onContactInputClass(checked)" ng-model="checked" ng-disabled="true" readonly />
-              <span class="text"></span>-->
-              <i class="fa fa-circle-thin lightgray" *ngIf="checked" [disabled]="true" readonly />
-              <i class="fa fa-circle green" *ngIf="checked" [disabled]="true" readonly />
-              <i class="fa fa-circle red" *ngIf="!checked" [disabled]="true" readonly />
-              <i class="fa fa-circle-thin lightgray" *ngIf="!checked" [disabled]="true" readonly />
+              <!-- <input class="checkbox-slider toggle ios" type="checkbox" ng-class="onContactInputClass(checked)" ng-model="checked" ng-disabled="true" readonly /> -->
+              <span class="text"></span>
+              <i class="fa fa-circle-thin" style="color: lightgray" *ngIf="checked[entry.id]" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle" style="color: green" *ngIf="checked[entry.id]" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle" style="color: red" *ngIf="!checked[entry.id]" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle-thin" style="color: lightgray" *ngIf="!checked[entry.id]" [attr.disabled]="true" readonly ></i>
               <span class="text"></span>
             </label>
           </td>
           <td *ngIf="entry.type == 'Uscita' ? true : false">
             <label>
-              <input class="checkbox-slider colored-palegreen" type="checkbox" (ngModelChange)="onContactGoDigital({{entry.id}}, checked)" [(ngModel)]="checked" />
+              <!-- <inputclass="checkbox-slider colored-palegreen" type="checkbox" (change)="onContactGoDigital(entry.id, checked)" [(ngModel)]="checked" /> -->
+              <ui-switch color="green" switchColor="lightgray" [(ngModel)]="checked[entry.id]" (change)="onContactGoDigital(entry.id, checked[entry.id])"></ui-switch>
               <span class="text"></span>
             </label>
           </td>
@@ -92,10 +95,10 @@
             <label>
               <!--<input class="checkbox-slider colored-palegreen toogle ios" type="checkbox" ng-class="onContactInputClass(checked)" ng-model="checked" ng-checked="entry.status" ng-disabled="true" readonly />
               <span class="text"></span-->
-              <i class="fa fa-circle-thin lightgray" *ngIf="checked" [disabled]="true" readonly />
-              <i class="fa fa-circle green" *ngIf="checked" [disabled]="true" readonly />
-              <i class="fa fa-circle red" *ngIf="!checked" [disabled]="true" readonly />
-              <i class="fa fa-circle-thin lightgray" *ngIf="!checked" [disabled]="true" readonly />
+              <i class="fa fa-circle-thin" style="color: lightgray" *ngIf="checked[entry.id]" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle" style="color: green" *ngIf="checked[entry.id]" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle" style="color: red" *ngIf="!checked[entry.id]" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle-thin" style="color: lightgray" *ngIf="!checked[entry.id]" [attr.disabled]="true" readonly ></i>
               <span class="text"></span>
             </label>
           </td>
@@ -107,7 +110,7 @@
 
 <ba-card>
   <div class="text-justify">
-    <p><i class="fa lightbulb-o" style="color: #008000"></i> Da questa sezione puoi gestire la lista delle etichette associate ai contatti.</p>
+    <p><i class="fa fa-lightbulb-o" style="color: #008000"></i> Da questa sezione puoi gestire la lista delle etichette associate ai contatti.</p>
   </div>
 </ba-card>
 

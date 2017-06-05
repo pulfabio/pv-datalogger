@@ -1,25 +1,38 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'counter',
   template: `
-    <div class="input-group-addon plus-minus-addon">
-      <span class="plusMinusBtn minusBtn" (click)="decrement()"><i class="fa fa-minus"></i></span>
-      <span class="plusMinusBtn plusBtn" (click)="increment()"><i class="fa fa-plus"></i></span>
-    </div>
+    <button class="plusminus col-xs-6" type="button" (click)="decrement()"><i class="fa fa-minus"></i></button>
+    <button class="plusminus col-xs-6" type="button" (click)="increment()"><i class="fa fa-plus"></i></button>
   `
 })
+  // <span class="plusMinusBtn minusBtn" (click)="decrement()"><i class="fa fa-minus"></i></span>
+  // <span class="plusMinusBtn plusBtn" (click)="increment()"><i class="fa fa-plus"></i></span>
 export class CounterComponent {
-  @Input() count: number;
+  @Input() count: string;
+  @Output() countChanged = new EventEmitter<string>();
   constructor() {
 
   }
-  increment() {
-    this.count += 10;
+  public increment() {
+    let value = +this.count;
+    this.count =  String(value += 10);
+    this.countChanged.emit(this.count);
   }
-  decrement() {
-    if (this.count - 10 >= 0) {
-      this.count -= 10;
+  public decrement() {
+    let value = +this.count;
+    if (value - 10 >= 0) {
+      this.count = String(value -= 10);
     }
+    this.countChanged.emit(this.count);
   }
+  // public increment() {
+  //   this.count += 10;
+  // }
+  // public decrement() {
+  //   if (this.count - 10 >= 0) {
+  //     this.count -= 10;
+  //   }
+  // }
 }

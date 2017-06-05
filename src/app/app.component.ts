@@ -53,7 +53,6 @@ export class App {
       let authdata = globals.currentUser.authdata;
       const headers = getHttpHeadersOrInit(data, method);
       headers.set('Authorization', 'Basic ' + authdata);
-      console.log(headers);
       return data;
     });
   }

@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+//import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {BaThemeConfigProvider, colorHelper, layoutPaths} from '../../theme';
-import { ActivatedRoute, Params } from "@angular/router";
-import {TimepickerModule} from 'ngx-bootstrap/timepicker';
 import * as moment from 'moment';
 import 'moment/locale/it';
 
@@ -13,7 +13,7 @@ import {ModalComponent} from '../../../shared/components/modal/modal.component';
 
 import {Rule} from '../../../shared/interfaces/rule';
 
-import 'style-loader!./newRule.scss';
+import 'style-loader!./editRule.scss';
 
 @Component({
   selector: 'edit-rule',
@@ -28,8 +28,8 @@ export class EditRule {
   public contactsListInput: Array<Object>;
   private subscriptionOut: Subscription = new Subscription();
   private subscriptionIn: Subscription = new Subscription();
-  private subscriptionEditRule: Subscription = new Subscription();
   private subscriptionSubmit: Subscription = new Subscription();
+  private subscriptionEditRule: Subscription = new Subscription();
   private busy: Subscription = new Subscription();
   public setOn_ruleFactorId: string;
   public setOff_ruleFactorId: string;
@@ -37,15 +37,22 @@ export class EditRule {
   public MessageSettings: string;
   public actdeactrule_ena: boolean;
 
+  //Rule to be edited
   public editRule: Rule;
+
+  //Variables used by ngb-timepicker
+  public timeOn: any;
+  public timeOff: any;
 
   constructor(
     private _loadsService: LoadsService,
     private route: ActivatedRoute,
+    private router: Router,
     private _baConfig: BaThemeConfigProvider
     ) {}
 
   ngOnInit() {
+    this.initialize();
     moment.locale('it');
     this.getConnection();
     this.getOutputs();
@@ -71,6 +78,7 @@ export class EditRule {
       inputs => {
         //let result = this.parseRealTimeData(realTimeData);
         this.contactsListInput = this.parseContacts(inputs);
+        //console.log(this.contactsListInput);
       },
       error => this.errorMessage = <any>error
     )
@@ -82,6 +90,7 @@ export class EditRule {
       outputs => {
         //let result = this.parseRealTimeData(realTimeData);
         this.contactsListOutput = this.parseContacts(outputs);
+        //console.log(this.contactsListOutput);
       },
       error => this.errorMessage = <any>error
     )
@@ -92,7 +101,7 @@ export class EditRule {
     let contacts = [];
 
     (<any>Object).entries(data.Result).forEach(([key, value]) => {
-    modbus = value;
+    modbus.push(value);
     });
 
     (<any>Object).entries(modbus[0]).forEach(([key2, value2]) => {
@@ -109,6 +118,8 @@ export class EditRule {
       ruleData => {
         //let result = this.parseRealTimeData(realTimeData);
         this.editRule = ruleData.data;
+        //console.log(this.editRule);
+        this.initializeTimepicker();
       },
       error => this.errorMessage = <any>error
     )
@@ -131,5 +142,68 @@ export class EditRule {
 
     this.modalTitle = "Modifica regola di gestione carichi";
     this.modal.show();
+
   };
+
+  public back = () => {
+    this.router.navigate(['../../rules'], { relativeTo: this.route });
+  }
+
+  public updateCount = (count: string, property: string) => {
+    this.editRule[property] = count;
+  }
+
+  public changeSetOn_time(timeOn) {
+    this.editRule.setOn_time = this.timeOn.hour + ":" + this.timeOn.minute + ":" + this.timeOn.second;
+  }
+
+  public changeSetOff_time(timeOff) {
+    this.editRule.setOff_time = this.timeOff.hour + ":" + this.timeOff.minute + ":" + this.timeOff.second;
+  }
+
+  initializeTimepicker = () => {
+    //Setting ngb-timepicker times
+    let ruleTimeOn = this.editRule.setOn_time;
+    let ruleTimeOff = this.editRule.setOff_time;
+    this.timeOn = {
+      hour: ruleTimeOn.slice(0, 2),
+      minute: ruleTimeOn.slice(3, 5),
+      second: ruleTimeOn.slice(6),
+    };
+    this.timeOff = {
+      hour: ruleTimeOff.slice(0, 2),
+      minute: ruleTimeOff.slice(3, 5),
+      second: ruleTimeOff.slice(6),
+    }
+  }
+
+  initialize = () => {
+    let now = new Date();
+    this.timeOn = {
+      hour: now.getHours(),
+      minute: now.getMinutes(),
+      second: now.getSeconds()
+    };
+    this.timeOff = {
+      hour: now.getHours(),
+      minute: now.getMinutes(),
+      second: now.getSeconds()
+    };
+    this.editRule = {
+      ruleId: "0",
+      contactId: "",
+      setOn_contactId: "",
+      setOn_ruleFactorId: "",
+      setOff_ruleFactorId: "",
+      setOn_time: this.timeOn.hour + ":" + this.timeOn.minute + ":" + this.timeOn.second,
+      setOff_time: this.timeOff.hour + ":" + this.timeOff.minute + ":" + this.timeOff.second,
+      setOn_pvprod_ist: "10",
+      setOn_pvprod_delay: "10",
+      setOn_pvprod_timer: "30",
+      setOff_pvprod_ist: "10",
+      setOff_pvprod_delay: "10",
+      setOff_pvprod_timer: "30"
+    }
+  }
+
 }

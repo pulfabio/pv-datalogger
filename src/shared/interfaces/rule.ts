@@ -3,6 +3,9 @@ export interface Rule {
   contactId: string;
   setOn_contactId: string;
   setOn_ruleFactorId: string;
+  //setOn_ruleFactor: string;
+  setOff_ruleFactorId: string;
+  //setOff_ruleFactor: string;
   //On Rules
   //setOn_ruleFactorId == 1
   setOn_time_sign?: string;

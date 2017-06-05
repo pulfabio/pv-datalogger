@@ -1,0 +1,30 @@
+@import "../../theme/sass/conf/conf";
+
+.leaf {
+  color: $bgGreen;
+}
+
+// input[readonly] {
+//   color: $default-text;
+// }
+
+input[type="text"]:read-only {
+  color: $default-text;
+}
+
+.setOnSignSelect {
+  width:55px;
+}
+
+.setOffSignSelect {
+  width:55px;
+}
+
+.plusminus {
+  color: $primary;
+}
+
+.timepicker {
+
+}
+

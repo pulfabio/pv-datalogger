@@ -4,7 +4,7 @@ import {Http, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs";
 
 interface auth{
-  email:string,
+  username:string,
   password:string
 }
 

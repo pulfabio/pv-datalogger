@@ -4,13 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
 // Loading/Busy indicator
-import {BusyModule} from 'angular2-busy';
+import { BusyModule } from 'angular2-busy';
 
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { routing }       from './events.routing';
+import { UiSwitchModule } from 'angular2-ui-switch'
+
+import { routing }       from './loads.routing';
 
 import { LoadsTabsService } from './loadsTabs/loadsTabs.service';
+import { LoadsService } from './loads.service';
 
 import { LoadsMain } from './loadsMain.component';
 import { Rules } from './loadsTabs/rules/rules.component';
@@ -22,7 +26,7 @@ import {ModalComponent} from '../../../shared/components/modal/modal.component';
 
 import {CounterComponent} from '../../../shared/components/counter/counter.component';
 
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+// import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LOCALE_ID } from '@angular/core';
 
@@ -33,8 +37,10 @@ import { LOCALE_ID } from '@angular/core';
     NgaModule,
     BusyModule,
     //MomentModule,
-    DatepickerModule.forRoot(),
+    //DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+    NgbModule,
+    UiSwitchModule,
     routing
   ],
   declarations: [
@@ -47,6 +53,7 @@ import { LOCALE_ID } from '@angular/core';
     CounterComponent
   ],
   providers: [
+    LoadsService,
     LoadsTabsService,
     { provide: LOCALE_ID, useValue: "it-IT" },
   ]

@@ -27,6 +27,8 @@ import { CookieModule } from 'ngx-cookie';
 //Interceptor, i.e. for common headers
 import { HttpInterceptorModule, HttpInterceptorService } from 'ng-http-interceptor';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
@@ -69,6 +71,7 @@ export const APPCONFIG:AppConfig = {
     ReactiveFormsModule,
     NgaModule.forRoot(),
     CookieModule.forRoot(),
+    NgbModule.forRoot(),
     HttpInterceptorModule,
     PagesModule,
     BrowserAnimationsModule,

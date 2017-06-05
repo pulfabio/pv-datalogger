@@ -27,6 +27,7 @@ export const routes: Routes = [
       { path: 'history', loadChildren: 'app/pages/history/history.module#HistoryModule' },
       { path: 'technical', loadChildren: 'app/pages/technical/technical.module#TechnicalModule' },
       { path: 'events', loadChildren: 'app/pages/events/events.module#EventsModule' },
+      { path: 'loads', loadChildren: 'app/pages/loads/loads.module#LoadsModule' },
     ]
   }
 ];

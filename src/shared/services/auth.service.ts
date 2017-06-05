@@ -35,26 +35,27 @@ export class AuthService {
 
   }
 
+  //REAL LOGIN SERVICE
+  realLogin(formData:Auth): any {
+    return this.http.post(
+      this.loginUrl,
+      JSON.stringify(formData),
+      {headers:new Headers({'Content-Type':'application/json'})}
+    )
+  }
+
+  //MOCK LOGIN SERVICE (Currently active, cause there is no back-end service)
   login(formData:Auth): any {
-
-    //REAL LOGIN SERVICE
-    // return this.http.post(
-    //   loginUrl,
-    //   JSON.stringify(formData),
-    //   {headers:new Headers({'Content-Type':'application/json'})}
-    // )
-
     let username = formData.username;
     let password = formData.password;
 
-    //MOCK LOGIN SERVICE
     let response = { success: username === 'admin' && password === 'ensolar', message: "" };
       if (!response.success) {
         response.message = 'Username o password errati.';
         this.loggedIn = true;
       }
-    return Observable.of(response).delay(1000);
 
+    return Observable.of(response).delay(1000);
   }
 
   setCredentials(formData:Auth): any {

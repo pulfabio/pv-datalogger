@@ -34,7 +34,7 @@ export class Login {
     if (this.form.valid) {
       // your code goes here
       // console.log(values);
-      this.auth.login({email:values.email, password:values.password}).subscribe(
+      this.auth.login({username:values.email, password:values.password}).subscribe(
         res => {
         if(res.status === 200){
           this.router.navigate(['pages']);

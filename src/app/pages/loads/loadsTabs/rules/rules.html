@@ -1,12 +1,14 @@
 <!-- Busy-Loading Indicator -->
 <div [ngBusy]="{busy: busy, message: 'Aggiornamento in corso...', backdrop: false, delay: 0, minDuration: 500}"></div>
 
-<ba-card title="Regole di Gestione Carichi" class="col-xs-12">
+<ba-card title="Regole di Gestione Carichi">
   <div class="widget-body table-responsive">
-    <div class="table-toolbar">
-      <a id="editabledatatable_new_1" routerLink="new-rule" class="btn btn-default">
+    <div class="add-button table-toolbar">
+      <!-- routerLink="new-rule" -->
+      <!-- <a id="editabledatatable_new_1" (click)="newRule()" class="btn btn-default">
         <i class="fa fa-plus-square"></i> Aggiungi nuova regola
-      </a>
+      </a> -->
+      <button class="btn btn-default" id="editabledatatable_new_1" (click)="newRule()"><i class="fa fa-plus-square"></i> Aggiungi nuova regola</button>
     </div>
 
     <div role="grid" id="editabledatatable_wrapper" class="dataTables_wrapper form-inline no-footer">
@@ -16,7 +18,7 @@
           <tr>
             <th><i class="fa fa-list-ol"></i> N.</th>
             <th><i class="fa fa-list-alt"></i> Nome</th>
-            <th><i class="fa fa-bolt"></i> Potenza Max Carico (Watt)</th>
+            <th><i class="fa fa-bolt"></i> Potenza Max (W) </th>
             <th colspan="2" style="text-align: center;"><i class="fa fa-toggle-on"></i> Regola ON</th>
             <th colspan="2" style="text-align: center;"><i class="fa fa-toggle-off"></i> Regola OFF</th>
             <th style="width: 80px;text-align: center;"><i class="fa fa-check"></i> Attivo</th>
@@ -34,20 +36,20 @@
             <td style="width: 150px;">
               {{rule.setOn_ruleFactor}}<br />
               <span>{{rule.setOnSign}}</span>
-              <small *ngIf="rule.setOn_ruleFactorId === 1"><strong>{{rule.setOn_time}}</strong></small>
-              <small *ngIf="rule.setOn_ruleFactorId === 2"><strong>{{rule.setOn_pvprod}}</strong> (ist.: {{rule.setOn_pvprod_ist}})</small>
-              <small *ngIf="rule.setOn_ruleFactorId === 3"><strong>{{rule.setOn_batteryperc}}</strong></small>
-              <small *ngIf="rule.setOn_ruleFactorId === 4"><strong>{{rule.setOn_batteryvolt}}</strong></small>
+              <small *ngIf="rule.setOn_ruleFactorId == 1"><strong>{{rule.setOn_time}}</strong></small>
+              <small *ngIf="rule.setOn_ruleFactorId == 2"><strong>{{rule.setOn_pvprod}}</strong> (ist.: {{rule.setOn_pvprod_ist}})</small>
+              <small *ngIf="rule.setOn_ruleFactorId == 3"><strong>{{rule.setOn_batteryperc}}</strong></small>
+              <small *ngIf="rule.setOn_ruleFactorId == 4"><strong>{{rule.setOn_batteryvolt}}</strong></small>
               <br /><small>Cadenza : {{rule.cadenza_brocca_on}}</small>
             </td>
             <td><small>Basato su ingresso: <br /> {{rule.setOff_contactId_name}}</small></td>
             <td style="width: 150px;">
               {{rule.setOff_ruleFactor}} <br />
               <span>{{rule.setOffSign}}</span>
-              <small *ngIf="rule.setOff_ruleFactorId === 1"><strong>{{rule.setOff_time}}</strong></small>
-              <small *ngIf="rule.setOff_ruleFactorId === 2"><strong>{{rule.setOff_pvprod}}</strong> (ist.: {{rule.setOff_pvprod_ist}})</small>
-              <small *ngIf="rule.setOff_ruleFactorId === 3"><strong>{{rule.setOff_batteryperc}}</strong></small>
-              <small *ngIf="rule.setOff_ruleFactorId === 4"><strong>{{rule.setOff_batteryvolt}}</strong></small>
+              <small *ngIf="rule.setOff_ruleFactorId == 1"><strong>{{rule.setOff_time}}</strong></small>
+              <small *ngIf="rule.setOff_ruleFactorId == 2"><strong>{{rule.setOff_pvprod}}</strong> (ist.: {{rule.setOff_pvprod_ist}})</small>
+              <small *ngIf="rule.setOff_ruleFactorId == 3"><strong>{{rule.setOff_batteryperc}}</strong></small>
+              <small *ngIf="rule.setOff_ruleFactorId == 4"><strong>{{rule.setOff_batteryvolt}}</strong></small>
               <br /><small>Cadenza : {{rule.cadenza_brocca_off}}</small>
             </td>
             <td>
@@ -58,25 +60,29 @@
                       attr.data-id="{{rule.ruleId}}"
                       attr.data-url="{{activeRuleUrl}}/{{rule.ruleId}}"
                       (ngModelChange)="actdeactRule(rule)">
-                <option *ngFor="let option of yesNoOptions"></option>
+                <option *ngFor="let option of yesNoOptions" value={{option.value}} label={{option.label}}></option>
               </select>
 
             </td>
             <td>
               <!--<input class="checkbox-slider colored-palegreen" type="checkbox" ng-model="checked" ng-checked="{{rule.status}}" ng-disabled="true" readonly />-->
-              <i class="fa fa-circle-thin lightgray" *ngIf="rule.status" [disabled]="true" readonly />
-              <i class="fa fa-circle green" *ngIf="rule.status" [disabled]="true" readonly />
 
-              <i class="fa fa-circle red" *ngIf="!rule.status" [disabled]="true" readonly />
-              <i class="fa fa-circle-thin lightgray" *ngIf="!rule.status" [disabled]="true" readonly />
+              <i class="fa fa-circle-thin" style="color: lightgray" *ngIf="rule.status" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle" style="color: green" *ngIf="rule.status" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle" style="color: red" *ngIf="!rule.status" [attr.disabled]="true" readonly ></i>
+              <i class="fa fa-circle-thin" style="color: lightgray" *ngIf="!rule.status" [attr.disabled]="true" readonly ></i>
 
               <!--<input class="green" name="name1" type="radio" ng-model="checked" ng-value="{{rule.status}}" ng-disabled="true" readonly  />
               <input class="red" name="name1" type="radio" ng-model="checked" ng-value="{{rule.status}}"  ng-disabled="true" readonly />
               <span class="text"></span>-->
             </td>
             <td>
-              <a class="btn btn-info btn-xs edit editRuleBtn1" (click)="editRule(rule.ruleId)" attr.data-id="{{rule.ruleId}}"><i class="fa fa-edit"></i> Modifica</a>
-              <a class="btn btn-danger btn-xs delete deleteRuleBtn1" (click)="deleteRule(rule)"><i class="fa fa-trash-o"></i> Elimina</a>
+              <div class="edit-button">
+                <a class="btn btn-info btn-xs edit editRuleBtn1" (click)="editRule(rule.ruleId)" attr.data-id="{{rule.ruleId}}"><i class="fa fa-edit"></i> Modifica</a>
+              </div>
+              <div class="delete-button">
+                <a class="btn btn-danger btn-xs delete deleteRuleBtn1" (click)="deleteRule(rule)"><i class="fa fa-trash-o"></i> Elimina</a>
+              </div>
             </td>
           </tr>
         </tbody>

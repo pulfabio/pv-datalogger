@@ -17,16 +17,10 @@ export const routes: Routes = [
       { path: '', redirectTo: 'rules', pathMatch: 'full' },
       { path: 'rules', component: Rules },
       { path: 'contacts', component: Contacts },
+      { path: 'new-rule', component: NewRule },
+      { path: 'edit-rule/:ruleId', component: EditRule }
     ]
   },
-  {
-    path: 'new-rule',
-    component: NewRule
-  },
-  {
-    path: 'edit-rule',
-    component: EditRule
-  }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);

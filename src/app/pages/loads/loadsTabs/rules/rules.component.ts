@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {BaThemeConfigProvider, colorHelper, layoutPaths} from '../../../../theme';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import 'moment/locale/it';
 
@@ -41,7 +41,8 @@ export class Rules {
   constructor(
     private _loadsTabsService: LoadsTabsService,
     private _baConfig: BaThemeConfigProvider,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ) {}
 
   ngOnInit() {
@@ -93,7 +94,7 @@ export class Rules {
     let contacts = [];
 
     (<any>Object).entries(data.Result).forEach(([key, value]) => {
-    modbus = value;
+    modbus.push(value);
     });
 
     (<any>Object).entries(modbus[0]).forEach(([key2, value2]) => {
@@ -109,6 +110,7 @@ export class Rules {
       rules => {
         //let result = this.parseRealTimeData(realTimeData);
         this.rules = this.parseRules(rules);
+        //console.log(this.rules);
       },
       error => this.errorMessage = <any>error
     )
@@ -119,7 +121,7 @@ export class Rules {
     let rules = [];
 
     (<any>Object).entries(data.Result).forEach(([key, value]) => {
-    modbus = value;
+    modbus.push(value);
     });
 
     (<any>Object).entries(modbus[0]).forEach(([key2, value2]) => {
@@ -134,6 +136,7 @@ export class Rules {
       this.subscriptionDelete = this._loadsTabsService.deleteRule(rule)
       .subscribe(
         data => {
+          this.getRules(); //Refresh the list of rules
           //let result = this.parseRealTimeData(realTimeData);
           this.MessageSettings = data.msg;
           this.actdeactrule_ena = true;
@@ -173,8 +176,12 @@ export class Rules {
     }
   };
 
-  public editRule(_id: string): void {
-    this.router.navigate(['edit-rule', _id])
+  public newRule = () => {
+    this.router.navigate(['../new-rule'], { relativeTo: this.route });
+  }
+
+  public editRule = (ruleId: string) => {
+    this.router.navigate(['../edit-rule', ruleId], { relativeTo: this.route });
   }
 
 }
